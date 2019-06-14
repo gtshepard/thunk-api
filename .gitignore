@@ -1,0 +1,7 @@
+#hide these folders
+
+node_modules/
+
+#hide these files
+
+package.json
