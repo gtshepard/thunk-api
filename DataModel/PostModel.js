@@ -1,5 +1,5 @@
 module.exports = (dataType, db) => {
-   return db.define('Post', {
+   return db.define('post', {
       text: dataType.STRING,
       downVote: dataType.INTEGER,
       upVote: dataType.INTEGER,
