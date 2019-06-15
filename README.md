@@ -30,7 +30,7 @@ end points are grouped by the HTTP methods that can call them.
 #### PUT (UPDATE)
 - ```/api/v1/user/:id```
 - ```/api/v1/post/:id```
--```/api/v1/comments/:id```
+- ```/api/v1/comments/:id```
 
 #### DELETE (DELETE)
 - ```/api/v1/user/:id```
