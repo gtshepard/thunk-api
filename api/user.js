@@ -1,5 +1,10 @@
 const router = require('express').Router();
-const {User, Post, Comment} = require('../data_model/index');
+const {User} = require('../data_model/index');
+
+router.post('/', (req, res) => {
+  User.create(req.body).then((result) => res.status(201).json(result));
+});
+
 /**
   router.get('/', (req, res) => {
     Campus.findAll().then(campuses => res.json(campuses))

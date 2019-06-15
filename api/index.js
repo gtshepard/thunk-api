@@ -1,5 +1,5 @@
 const router = require('express').Router();
-//const studentRouter = require('./student');
+const userRouter = require('./user');
 //const campusRouter = require('./campus');
 const {User, Post, Comment} = require('../data_model/index');
 
@@ -7,4 +7,5 @@ const {User, Post, Comment} = require('../data_model/index');
 //router.use("/students", studentRouter);
 //router.use("/campuses", campusRouter);
 
+router.use("/user", userRouter);
 module.exports = router;
