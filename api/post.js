@@ -6,7 +6,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/user/:id', (req, res, next) => {
-
+    Post.findAll({where:{userId:[req.params.id]}}).then((posts) => res.status(201).json(posts));
 });
 
 router.get('/:id', (req, res, next) => {
