@@ -8,6 +8,12 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use("/api/v1", apiRouter);
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).send(err.message
+    || "internal server error");
+});
+
 app.listen(3001, () => {
   console.log("Listening on port 3001")
 });

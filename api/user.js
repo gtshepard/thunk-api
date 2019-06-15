@@ -1,10 +1,25 @@
 const router = require('express').Router();
 const {User} = require('../data_model/index');
 
-router.post('/', (req, res, next) => {
-  User.create(req.body).then((result) => res.status(201).json(result));
+router.get('/', (req, res, next) => {
+    User.findAll().then((users) => res.status(201).json(users));
 });
 
+router.get('/:id', (req, res, next) => {
+    User.findByPk(req.params.id).then((user) => res.status(201).json(user));
+});
+
+//router.get('/:id/posts', (req, res, next) => {
+  //  User.findByPk(req.params.id).then( user => Post.findAll())
+//});
+
+router.post('/', (req, res, next) => {
+    User.create(req.body).then((user) => res.status(201).json(user));
+});
+
+router.put('/:id', (req, res, next) => {
+    User.findByPk(req.params.id).then((user) => user.update(req.body)).then((updatedUser) => res.status(201).json(updatedUser));
+});
 /**
   router.get('/', (req, res) => {
     Campus.findAll().then(campuses => res.json(campuses))
