@@ -24,6 +24,8 @@ end points are grouped by the HTTP methods that can call them.
 - ```/api/v1/comments```
 
 #### GET (READ)
+
+###### get all users
 - ```/api/v1/users```
 ###### get all posts for a user
 - ```/api/v1/users/posts```
