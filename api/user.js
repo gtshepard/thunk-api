@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {User} = require('../data_model/index');
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   User.create(req.body).then((result) => res.status(201).json(result));
 });
 
