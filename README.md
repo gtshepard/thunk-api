@@ -3,7 +3,7 @@
 ### Tech Stack 
   - Node.js + Express + Sequelize + PostgreSQL
   
-### How To Run This Program ?
+### How To Run This Program
   - verify Node is installed ``` npm -v ```
   - if not ```sudo apt install nodejs```
   - then run ```npm install``` to install the latest dependencies.
