@@ -1,0 +1,12 @@
+#dont track these folders
+node_modules/
+#dont track these file types 
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+.env
