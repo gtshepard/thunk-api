@@ -3,8 +3,7 @@ const {User, Post, Comment} = require('../data_model/index');
 
 //import axios from 'axios'
 const geoSphere = require('spherical-geometry-js');
-//const GOOGLE_MAPS_API_KEY = 'AIzaSyDC7gMlaQ697ieUiGtMpldPvrOqouEAoVg';
-//const geo = require('https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&libraries=geometry');
+
 
 router.get('/', (req, res, next) => {
     Post.findAll().then((posts) => res.status(201).json(posts));
