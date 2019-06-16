@@ -3,7 +3,6 @@ const Database = new Sequelize('postgres://Garrison:gts092894@localhost/thunk');
 const UserModel = require('./UserModel.js');
 const PostModel = require('./PostModel.js');
 const CommentModel = require('./CommentModel.js');
-
 //init data models
 const User = UserModel(Sequelize, Database);
 const Post = PostModel(Sequelize, Database);
@@ -30,5 +29,5 @@ Database.sync().then(() => {
 module.exports = {
   User,
   Post,
-  Comment
+  Comment,
 }
