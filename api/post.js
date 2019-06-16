@@ -25,7 +25,9 @@ router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
     return i*0.000621371192;
   }
 
-  Post.findAll().then((posts) => posts.filter((e) => (req.params.radius > getMiles(geoSphere.computeDistanceBetween({lat:e.lattitude ,lng: e.longitude}, {lat: req.params.lat, lng: req.params.lng}))))).then((p) => res.status(201).json(p));
+  Post.findAll({ order:[
+            ['createdAt', 'DESC']
+  ]}).then((posts) => posts.filter((e) => (req.params.radius > getMiles(geoSphere.computeDistanceBetween({lat:e.lattitude ,lng: e.longitude}, {lat: req.params.lat, lng: req.params.lng}))))).then((p) => res.status(201).json(p));
 });
 
 router.get('/:hashTag', (req, res, next) => {
@@ -33,6 +35,12 @@ router.get('/:hashTag', (req, res, next) => {
         hashTag: [req.params.hashTag]
     }}).then((posts) => res.status(201).json(posts));
 });
+
+//post with highest
+router.get('/popular', (req, res, next) => {
+
+});
+
 // TODO: get posts by hashtag, also count the posts.
 router.post('/', (req, res, next) => {
     Post.create(req.body).then((post) => res.status(201).json(post));
