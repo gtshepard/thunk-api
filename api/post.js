@@ -16,14 +16,13 @@ router.get('/user/:id', (req, res, next) => {
 });
 
 //get feed for a user (posts with in the location radius of the user)
-router.get('/user/:id/:lat/:lng', (req, res, next) => {
+router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
 
     //location of the user, long lat
     //location radius of user
     //location of a post
     //calculate distance between post and user and see if the post is <= to location radius
     //clark st 40.697835, -73.993762
-    let dis = geoSphere.computeDistanceBetween({lat:40.697835, lng: -73.993762}, {lat: 40.730876 , lng: -73.992002});
   //animoto  40.730876, -73.992002
   //wsq park 40.731091, -73.997318
   //nyu tish 40.729753, -73.993780
@@ -31,7 +30,7 @@ router.get('/user/:id/:lat/:lng', (req, res, next) => {
   //shanes 40.728273, -73.987688
   //boardwalk JShore: 40.393044, -74.013410
   //  console.log(dis);
-    let data = Post.findAll();
+
   //  let acceptableDistance = User.findByPk(req.params.id).distanceRadius;
     //console.log(user);
     //new google.maps.LatLng(-34, 151),
@@ -44,17 +43,14 @@ router.get('/user/:id/:lat/:lng', (req, res, next) => {
         userId: [geoSphere.computeDistanceBetween({lat:40.697835, lng: -73.993762}, {lat: 40.730876 , lng: -73.992002})]
       }
   }).then((posts) => res.status(201).json(posts));
-
 **/
 
-function getMiles(i) {
-   return i*0.000621371192;
-}
- //Post.findAll().then(() => console.log(distance))then((post) => res.status(201).json(post));
-  console.log("DIST: ", getMiles(geoSphere.computeDistanceBetween({lat:40.393044, lng:-74.013410 }, {lat: 40.730876 , lng: -73.992002})));
-  //Post.findAll().then((posts) => console.log(posts.length)).then((post) => res.status(201).json(post));
-  Post.findAll().then((posts) => posts.filter((e) => (5 > getMiles(geoSphere.computeDistanceBetween({lat:e.lattitude ,lng: e.longitude}, {lat: 40.730876 , lng: -73.992002}))))).then((p) => res.status(201).json(p));
-  //Post.findAll().then((posts) => posts.filter((e) => (5 > getMiles(geoSphere.computeDistanceBetween({lat:40.697835, lng: -73.993762}, {lat: 40.730876 , lng: -73.992002}))))).then((p) => res.status(201).json(p));
+  function getMiles(i) {
+    return i*0.000621371192;
+  }
+  //console.log("DIST: ", getMiles(geoSphere.computeDistanceBetween({lat:40.393044, lng:-74.013410 }, {lat: 40.730876 , lng: -73.992002})));
+  Post.findAll().then((posts) => posts.filter((e) => (req.params.radius > getMiles(geoSphere.computeDistanceBetween({lat:e.lattitude ,lng: e.longitude}, {lat: req.params.lat, lng: req.params.lng}))))).then((p) => res.status(201).json(p));
+
 });
 
 // TODO: get posts by hashtag, also count the posts.
