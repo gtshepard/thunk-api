@@ -67,6 +67,14 @@ router.put('/:id', (req, res, next) => {
     Post.findByPk(req.params.id).then((post) => post.update(req.body)).then((updatedPost) => res.status(201).json(updatedPost));
 });
 
+router.delete('/:id', (req, res, next) => {
+    Post.destroy({
+      where:{id: req.params.id}
+    }).then((post) => res.status(201).json(post));
+});
+
+
+
 /**router.delete('/:id', (req, res, next) => {
 
 });**/
