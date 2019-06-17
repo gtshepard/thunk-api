@@ -2,10 +2,9 @@ const router = require('express').Router();
 const {User, Post, Comment} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
 
-
-router.get('/', (req, res, next) => {
-    Post.findAll().then((posts) => res.status(201).json(posts));
-});
+//router.get('/', (req, res, next) => {
+  //  Post.findAll().then((posts) => res.status(201).json(posts));
+//});
 
 //get all posts made by a specific user
 router.get('/user/:id', (req, res, next) => {
@@ -30,16 +29,34 @@ router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
   ]}).then((posts) => posts.filter((e) => (req.params.radius > getMiles(geoSphere.computeDistanceBetween({lat:e.lattitude ,lng: e.longitude}, {lat: req.params.lat, lng: req.params.lng}))))).then((p) => res.status(201).json(p));
 });
 
+//get all posts for a hastag order by most recent creation date
 router.get('/:hashTag', (req, res, next) => {
     Post.findAll({where: {
         hashTag: [req.params.hashTag]
     }}).then((posts) => res.status(201).json(posts));
 });
 
-//post with highest
-router.get('/popular', (req, res, next) => {
+//get posts with highest votes, order by DESC upVotes
+/**router.get('/', (req, res, next) => {
+    Post.findAll({order:[
+            ['upVote', 'DESC']
+    ]}).then((posts) => res.status(201).json(posts));
+});**/
 
+
+//post with lowest down votes order by DESC down votes
+/**
+router.get('/', (req, res, next) => {
+    Post.findAll({order:[
+            ['downVote']
+    ]}).then((posts) => res.status(201).json(posts));
 });
+**/
+
+//get trending hash tags (used the most)
+/**router.get('/trending/hashTag', (req, res, next) => {
+
+});**/
 
 // TODO: get posts by hashtag, also count the posts.
 router.post('/', (req, res, next) => {
@@ -49,5 +66,17 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
     Post.findByPk(req.params.id).then((post) => post.update(req.body)).then((updatedPost) => res.status(201).json(updatedPost));
 });
+
+router.delete('/:id', (req, res, next) => {
+    Post.destroy({
+      where:{id: req.params.id}
+    }).then((post) => res.status(201).json(post));
+});
+
+
+
+/**router.delete('/:id', (req, res, next) => {
+
+});**/
 
 module.exports = router;
