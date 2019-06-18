@@ -17,8 +17,11 @@ end points are grouped by the HTTP methods that can call them.
 
 ###### get all users
 - ```/api/v1/users```
-###### get all posts
-- ```/api/v1/posts```
+###### get user by id 
+- ```/ap1/v1/users/:id```
+
+###### get all posts with distance radius of a user 
+- ```/api/v1/posts/user/:id/:radius/:lat/:lng```
 
 ###### get all comments
 - ```/api/v1/comments```
