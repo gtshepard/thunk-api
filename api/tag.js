@@ -2,28 +2,49 @@ const router = require('express').Router();
 const {User, Post, Comment, Tag} = require('../data_model/index');
 
 //get all hashtags for a post
-
-router.post('/post/:id', (req, res, next) => {
-
+router.get('/post/:id', (req, res, next) => {
   Post.findByPk(req.params.id).then((post) => {
-  //   Tag.create(req.body).then((tag) => {
-  //   console.log(Object.keys(Object.getPrototypeOf(tag)))
-  //   console.log(Object.keys(Object.getPrototypeOf(post)))
-  //   res.json(tag)
-  // })
-  post.createTag(req.body).then((post) => res.json(post))
-  // res.json(post)
+    post.getTags().then((post) => res.json(post))
+  })
+})
 
-    // Tag.create(req.body).then((tag) => res.status(201).json(tag));
+//get all tags with the same value
+router.get('/:tag', (req, res, next) => {
+  //.findAll({where:{tag:[req.params.tag]})
+  Tag.findAll({where:{tag:[req.params.tag]}}).then((tags) => res.status(201).json(tags));
+});
+
+//
+
+//get all hashtags for a user
+
+//get most popluar tags
+
+//create a tag for a post
+router.post('/post/:id', (req, res, next) => {
+  Post.findByPk(req.params.id).then((post) => {
+    post.createTag(req.body).then((post) => res.json(post))
   })
 });
+
+
+
+
+// res.json(post)
+  // Tag.create(req.body).then((tag) => res.status(201).json(tag));
+
+//   Tag.create(req.body).then((tag) => {
+//   console.log(Object.keys(Object.getPrototypeOf(tag)))
+//   console.log(Object.keys(Object.getPrototypeOf(post)))
+//   res.json(tag)
+// })
 
 /**router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
     console.log(Object.keys(Object.getPrototypeOf(post)))
     res.send('Sucess')
 
 })**/
-
+/**
 router.post('/likes/post/:postId/user/:userId', (req,res,next) => {
   Post.findByPk(1).then(post => console.log(Object.keys(Object.getPrototypeOf(post))))
 
@@ -31,7 +52,7 @@ router.post('/likes/post/:postId/user/:userId', (req,res,next) => {
 
 
 })
-
+**/
 
 
 
