@@ -1,5 +1,19 @@
 const router = require('express').Router();
 const {User} = require('../data_model/index');
+const passport = require('passport');
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user)
+  } catch (err){
+    done(err);
+  }
+});
 
 router.get('/', (req, res, next) => {
     User.findAll().then((users) => res.status(201).json(users));
