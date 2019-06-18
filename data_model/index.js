@@ -31,6 +31,11 @@ User.hasMany(Comment);
 Tag.belongsToMany(Post, {through: 'post_tags'});
 Post.belongsToMany(Tag, {through: 'post_tags'});
 
+User.belongsToMany(Post, {as: 'Likes', through: 'likes'});
+Post.belongsToMany(User, {as: 'Likes', through: 'likes'});
+
+User.belongsToMany(Post, {as: 'Dislikes', through: 'dislikes'});
+Post.belongsToMany(User, {as: 'Dislikes', through: 'dislikes'});
 
 //connect to Database
 //Database.sync().then(() => {
@@ -179,8 +184,8 @@ const seed = async () => {
 
     console.log(`
       Seed success!
-    `)
-    Database.close()
+    `);
+
   } catch (err) {
     console.error(`
       Oh noes!

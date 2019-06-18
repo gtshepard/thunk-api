@@ -4,12 +4,36 @@ const {User, Post, Comment, Tag} = require('../data_model/index');
 //get all hashtags for a post
 
 router.post('/post/:id', (req, res, next) => {
-  console.log(req.body);
 
   Post.findByPk(req.params.id).then((post) => {
-    console.log(post);
+  //   Tag.create(req.body).then((tag) => {
+  //   console.log(Object.keys(Object.getPrototypeOf(tag)))
+  //   console.log(Object.keys(Object.getPrototypeOf(post)))
+  //   res.json(tag)
+  // })
+  post.createTag(req.body).then((post) => res.json(post))
+  // res.json(post)
+
+    // Tag.create(req.body).then((tag) => res.status(201).json(tag));
   })
 });
+
+/**router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
+    console.log(Object.keys(Object.getPrototypeOf(post)))
+    res.send('Sucess')
+
+})**/
+
+router.post('/likes/post/:postId/user/:userId', (req,res,next) => {
+  Post.findByPk(1).then(post => console.log(Object.keys(Object.getPrototypeOf(post))))
+
+  res.send(`Hello foo ${req.params.postId}. How is the bar? ${req.params.userId}`)
+
+
+})
+
+
+
 
 
 
