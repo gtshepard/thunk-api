@@ -57,6 +57,43 @@ router.get('/', (req, res, next) => {
 /**router.get('/trending/hashTag', (req, res, next) => {
 
 });**/
+//get number of likes for a post
+router.get('/likes/post/:id', (req, res, next) => {
+  Post.findByPk(req.params.id).then((post) => {
+    post.countLikes().then((post) => res.json(post))
+  })
+})
+
+
+//get the best posts based on likes.
+router.get('/', async (req, res, next) => {
+    let postLikes = [];
+
+    const allPosts = await Post.findAll()
+      //console.log(allPosts.length)
+      //res.send(`${allPosts.length}`)
+      for (let i = 0; i < allPosts.length; i++) {
+        console.log("ME");
+        //  allPosts[i].countLikes().then((likes) => {postLikes.push(likes)}).then((likes) => res.status(201).json(likes))
+        const allLikes = {post: allPosts[i], count: await allPosts[i].countLikes()}
+        postLikes.push(allLikes);
+      //  .then((likeCount) => {postLikes.push(likeCount)});
+      }
+      const sortedPosts = postLikes.sort((a, b) => {return b.count - a.count})
+      res.status(201).json(sortedPosts);
+  //  }).then((allLikeCounts) => res.status(201).json(allLikeCounts));
+})
+
+router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
+  Post.findByPk(req.params.postid).then((post) => {
+    console.log("POST" , post.id);
+    // console.log(post);
+    // post.addLike([post]).then((post) => res.json(post))
+    User.findByPk(req.params.userid).then(user => {
+      post.addLike(user).then(like => res.json(like))
+    })
+  })
+})
 
 // TODO: get posts by hashtag, also count the posts.
 router.post('/', (req, res, next) => {

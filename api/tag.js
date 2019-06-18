@@ -14,8 +14,6 @@ router.get('/:tag', (req, res, next) => {
   Tag.findAll({where:{tag:[req.params.tag]}}).then((tags) => res.status(201).json(tags));
 });
 
-//
-
 //get all hashtags for a user
 
 //get most popluar tags
