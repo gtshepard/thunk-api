@@ -4,13 +4,13 @@ const Database = new Sequelize('postgres://' + process.env.DATABASE_USER + ':' +
 const UserModel = require('./UserModel.js');
 const PostModel = require('./PostModel.js');
 const CommentModel = require('./CommentModel.js');
-//const HashTagModel = require('./HashTagModel.js');
+const TagModel = require('./TagModel.js');
 //const PostHashTagModel = require('./PostHashTagModel.js');
 //init data models
 const User = UserModel(Sequelize, Database);
 const Post = PostModel(Sequelize, Database);
 const Comment = CommentModel(Sequelize, Database);
-//const HashTag = HashTagModel(Sequelize, Database);
+const Tag = TagModel(Sequelize, Database);
 //const PostHashTag = PostHashTagModel(Sequelize, Database);
 console.log(Post, User, Comment);
 
@@ -27,8 +27,9 @@ Comment.belongsTo(User);
 User.hasMany(Comment);
 
 //return user.addTodos([todo]) keep this in mind when making hashtag
-//HashTag.belongsToMany(Post, {through: PostHashTag});
-//Post.belongsToMany(HashTag, {through: PostHashTag});
+//user.addProject(project, { through: { status: 'started' }}) somthing you would do in post req
+Tag.belongsToMany(Post, {through: 'post_tags'});
+Post.belongsToMany(Tag, {through: 'post_tags'});
 
 //connect to Database
 Database.sync().then(() => {
@@ -38,7 +39,7 @@ Database.sync().then(() => {
 module.exports = {
   User,
   Post,
-  Comment
-  //HashTag,
+  Comment,
+  Tag
 //  PostHashTag
 }

@@ -7,9 +7,17 @@ require('dotenv').config();
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
 router.get('/callback', passport.authenticate('google', {
-    successRedirect: '/home',
+    successRedirect: 'https://github.com/',
     failureRedirect: '/'
 }));
+
+router.delete('/logout', (req, res, next) => {
+  req.logout()
+  req.session.destroy((err) => {
+    if (err) return next(err)
+    res.status(204).end()
+  })
+})
 
 const googleCredentials = {
   clientID: process.env.GOOGLE_CLIENT_ID,
