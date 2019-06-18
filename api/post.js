@@ -30,11 +30,11 @@ router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
 });
 
 //get all posts for a hastag order by most recent creation date
-router.get('/:hashTag', (req, res, next) => {
+/**router.get('/:hashTag', (req, res, next) => {
     Post.findAll({where: {
         hashTag: [req.params.hashTag]
     }}).then((posts) => res.status(201).json(posts));
-});
+});**/
 
 //get posts with highest votes, order by DESC upVotes
 /**router.get('/', (req, res, next) => {

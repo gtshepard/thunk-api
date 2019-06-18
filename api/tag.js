@@ -2,20 +2,72 @@ const router = require('express').Router();
 const {User, Post, Comment, Tag} = require('../data_model/index');
 
 //get all hashtags for a post
+router.get('/post/:id', (req, res, next) => {
+  Post.findByPk(req.params.id).then((post) => {
+    post.getTags().then((post) => res.json(post))
+  })
+})
 
-router.post('/post/:id', (req, res, next) => {
-  Tag.create(req.body).then((tag) => res.status(201).json(tag));
-  //Post.findByPk(req.params.id).then((post) => .then((post, tag) => post.addTags([tag])).then((tag) => res.status(201).json(tag));
-  //Post.findByPk(req.params.id).then(() => addTag({tag})).then((tag) => post.addTags(tag)).then((tag) => res.status(201).json(tag))
-  //const post = Post.findByPk(req.params.id);
-  //Tag.create({tag:req.body}).then(function(tag) {post.addTags([tag])});
-  //post.addTags([tag])
-//  const t = Tag.create({tag: req.body});
-  //Post.findByPk(req.params.id).then((post) => {
-  //}).then((post) => res.status.json(post));
-
+//get all tags with the same value
+router.get('/:tag', (req, res, next) => {
+  //.findAll({where:{tag:[req.params.tag]})
+  Tag.findAll({where:{tag:[req.params.tag]}}).then((tags) => res.status(201).json(tags));
 });
 
+//
+
+//get all hashtags for a user
+
+//get most popluar tags
+
+//create a tag for a post
+router.post('/post/:id', (req, res, next) => {
+  Post.findByPk(req.params.id).then((post) => {
+    post.createTag(req.body).then((post) => res.json(post))
+  })
+});
+
+
+
+
+// res.json(post)
+  // Tag.create(req.body).then((tag) => res.status(201).json(tag));
+
+//   Tag.create(req.body).then((tag) => {
+//   console.log(Object.keys(Object.getPrototypeOf(tag)))
+//   console.log(Object.keys(Object.getPrototypeOf(post)))
+//   res.json(tag)
+// })
+
+/**router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
+    console.log(Object.keys(Object.getPrototypeOf(post)))
+    res.send('Sucess')
+
+})**/
+/**
+router.post('/likes/post/:postId/user/:userId', (req,res,next) => {
+  Post.findByPk(1).then(post => console.log(Object.keys(Object.getPrototypeOf(post))))
+
+  res.send(`Hello foo ${req.params.postId}. How is the bar? ${req.params.userId}`)
+
+
+})
+**/
+
+
+
+
+
+//Tag.create(req.body).then((tag) => res.status(201).json(tag));
+
+//Post.findByPk(req.params.id).then((post) => .then((post, tag) => post.addTags([tag])).then((tag) => res.status(201).json(tag));
+//Post.findByPk(req.params.id).then(() => addTag({tag})).then((tag) => post.addTags(tag)).then((tag) => res.status(201).json(tag))
+//const post = Post.findByPk(req.params.id);
+//Tag.create({tag:req.body}).then(function(tag) {post.addTags([tag])});
+//post.addTags([tag])
+//  const t = Tag.create({tag: req.body});
+//Post.findByPk(req.params.id).then((post) => {
+//}).then((post) => res.status.json(post));
 
 //Well, I solved the problem with setCoins, above. Apparently it takes id numbers and not objects, so this works:
 /*Ledger.findById(22).then(ledger=>{

@@ -5,7 +5,6 @@ module.exports = (dataType, db) => {
       upVote: dataType.INTEGER,
       lattitude: dataType.DOUBLE,
       longitude: dataType.DOUBLE,
-      report: dataType.STRING,
-      hashTag: dataType.STRING
+      report: dataType.STRING
    });
 }
