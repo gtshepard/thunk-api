@@ -69,7 +69,7 @@ router.get('/thought/:id', async (req, res, next) => {
 
 //get all posts made by a specific user
 router.get('/user/:userid', (req, res, next) => {
-    Post.findAll({where:{userId:[req.params.id]}}).then((posts) => res.status(201).json(posts));
+    Post.findAll({where:{userId:[req.params.userid]}}).then((posts) => res.status(201).json(posts));
 });
 
 //get feed for a user (posts with in the location radius of the user)
