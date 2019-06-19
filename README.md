@@ -1,4 +1,4 @@
-## RESTful API for campus management.
+## RESTful API for Thunk (social media app - anonymous thought sharing)
 
 ### Tech Stack 
   - Node.js + Express + Sequelize + PostgreSQL
@@ -13,50 +13,76 @@
 - the api has the following endpoints (were the colon (:) denotes a parameter)
 end points are grouped by the HTTP methods that can call them. 
 
-#### POST (CREATE)
+##### User
 
-###### get all users
-- ```/api/v1/users```
-###### get user by id 
-- ```/ap1/v1/users/:id```
+###### get all users (GET)
+- ```/api/v1/user/```
+###### get user by id (GET)
+- ```/ap1/v1/user/:userid```
+###### create a user (POST)
+- ```/api/v1/user```
+###### update a user (PUT)
+- ```/api/v1/user/:userid```
+###### delete a user (DELETE)
+- ```/api/v1/user/:userid```
 
-###### get all posts with distance radius of a user 
-- ```/api/v1/posts/user/:id/:radius/:lat/:lng```
+##### Posts 
 
-###### get all comments
-- ```/api/v1/comments```
+###### get all posts made by a specific user (GET)
+- ```/api/v1/post/user/:userid```
+###### get all posts within x miles of the users location (where x is the distance radius) (GET)
+- ```/api/v1/post/user/:userid/:radius/:lat/:lng```
+###### get number of likes for a post (GET)
+- ```/api/v1/post/likes/post/:postid```
+###### get number of dislikes for a post (GET)
+- ```/api/v1/post/dislikes/post/:postid```
+###### get all time best posts based on vote count (GET)
+- ```/api/v1/post/best```
+###### get all time worst posts based on vote count (GET)
+- ```/api/v1/post/worst```
+###### create a post for a user (POST)
+- ```/api/v1/post/``` 
+###### user likes a post (POST)
+- ```/api/v1/post/likes/post/:postid/user/:userid```
+###### user dislikes a post (POST)
+- ```/dislikes/post/:postid/user/:userid```
+###### update post by id (PUT)
+- ```/api/v1/post/:postid``` 
+###### delete post by id (DELETE)
+- ```/api/v1/post/:postid``` 
 
-#### GET (READ)
+##### Comment
 
-###### get all users
-- ```/api/v1/users```
-###### get all posts for a user
-- ```/api/v1/users/posts```
+###### get all comments (GET)
+- ```/api/v1/comment/```
+###### get all comments for a specific post (GET)
+- ```/api/v1/comment/post/:postid```
+###### get all comments for a specific user (GET)
+- ```/api/v1/comment/user/:userid```
+###### create a comment (POST)
+- ```/api/v1/comment/```
+###### update a comment by id (remember all attirbutes in requets body) (PUT)
+- ```/api/v1/comment/:commentid```
+###### delete a comment by id (POST)
+- ```/api/v1/comment/:commentid```
 
-###### get all comments for a post 
-- ```/api/v1/posts/:id/comments```
+##### Tag 
 
-###### get all comments for a user 
-- ```/api/v1/users/:id/comments```
+###### get all tags for a post 
+- ```/api/v1/tag/post/:postid```
+###### get all identical tags 
+- ```/api/v1/tag/:tag```
+###### create a tag for a post (POST)
+- ```/api/v1/tag/post/:postid```
 
-#### PUT (UPDATE)
+##### Coming soon 
 
-###### update a user 
-- ```/api/v1/user/:id```
-###### update a post
-- ```/api/v1/post/:id```'
-###### update a comment
-- ```/api/v1/comments/:id```
+###### delete a tag (DELETE)
+###### get trending tags (GET)
+###### get number of occurences of a specific tag (GET)
+###### get all posts with specific tag (GET)
 
-#### DELETE (DELETE)
-###### delete a user 
-- ```/api/v1/user/:id```
 
-###### delete a post 
-- ```/api/v1/post/:id```
-
-###### delete a comment
-- ```/api/v1/comment/:id```
 
 an example call on when the server is running on the local machine. 
 - http://localhost:3000/api/v1/users
