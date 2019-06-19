@@ -7,64 +7,64 @@
 ##### User
 
 ###### get all users (GET)
-- ```/api/v1/user/```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/user/```
 ###### get user by id (GET)
-- ```/ap1/v1/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/ap1/v1/user/:userid```
 ###### create a user (POST)
-- ```/api/v1/user```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/user```
 ###### update a user (PUT)
-- ```/api/v1/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 ###### delete a user (DELETE)
-- ```/api/v1/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 
 ##### Posts
 
 ###### get all posts made by a specific user (GET)
-- ```/api/v1/post/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/user/:userid```
 ###### get all posts within x miles of the users location (where x is the distance radius) (GET)
-- ```/api/v1/post/user/:userid/:radius/:lat/:lng```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/user/:userid/:radius/:lat/:lng```
 ###### get number of likes for a post (GET)
 - ```/api/v1/post/likes/post/:postid```
 ###### get number of dislikes for a post (GET)
-- ```/api/v1/post/dislikes/post/:postid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/dislikes/post/:postid```
 ###### get all time best posts based on vote count (GET)
-- ```/api/v1/post/best```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/best```
 ###### get all time worst posts based on vote count (GET)
-- ```/api/v1/post/worst```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/worst```
 ###### create a post for a user (POST)
-- ```/api/v1/post/```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/```
 ###### user likes a post (POST)
-- ```/api/v1/post/likes/post/:postid/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/likes/post/:postid/user/:userid```
 ###### user dislikes a post (POST)
-- ```/dislikes/post/:postid/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/dislikes/post/:postid/user/:userid```
 ###### update post by id (PUT)
-- ```/api/v1/post/:postid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/:postid```
 ###### delete post by id (DELETE)
-- ```/api/v1/post/:postid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/:postid```
 
 ##### Comment
 
 ###### get all comments (GET)
-- ```/api/v1/comment/```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/comment/```
 ###### get all comments for a specific post (GET)
-- ```/api/v1/comment/post/:postid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/comment/post/:postid```
 ###### get all comments for a specific user (GET)
-- ```/api/v1/comment/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/comment/user/:userid```
 ###### create a comment (POST)
-- ```/api/v1/comment/```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/comment/```
 ###### update a comment by id (remember all attirbutes in requets body) (PUT)
-- ```/api/v1/comment/:commentid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/comment/:commentid```
 ###### delete a comment by id (POST)
-- ```/api/v1/comment/:commentid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/comment/:commentid```
 
 ##### Tag
 
 ###### get all tags for a post
-- ```/api/v1/tag/post/:postid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 ###### get all identical tags
-- ```/api/v1/tag/:tag```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/:tag```
 ###### create a tag for a post (POST)
-- ```/api/v1/tag/post/:postid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 
 #### Coming soon
 
