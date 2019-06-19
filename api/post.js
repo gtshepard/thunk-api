@@ -109,12 +109,10 @@ router.delete('/:id', (req, res, next) => {
       where:{id: req.params.id}
     }).then((post) => res.status(201).json(post));
 });
-//TODO: add table of contents to 
+//TODO: add table of contents to
 //TODO: report update value (many to many relationship)
 //TODO: user account creation
 //must be authenticated to use any endpoint
 //TODO: trending tags  ()
-//TODO: post by tag (thought format)
-//TODO: best and worst in thought
 //TODO: take in an array of tags
 module.exports = router;
