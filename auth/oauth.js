@@ -7,7 +7,7 @@ require('dotenv').config();
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
 router.get('/callback', passport.authenticate('google', {
-    successRedirect: 'https://github.com/',
+    successRedirect: 'http://localhost:3000/',
     failureRedirect: '/'
 }));
 
