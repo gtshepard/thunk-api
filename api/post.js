@@ -2,10 +2,6 @@ const router = require('express').Router();
 const {User, Post, Comment} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
 
-//router.get('/', (req, res, next) => {
-  //  Post.findAll().then((posts) => res.status(201).json(posts));
-//});
-
 //get all posts made by a specific user
 router.get('/user/:id', (req, res, next) => {
     Post.findAll({where:{userId:[req.params.id]}}).then((posts) => res.status(201).json(posts));
@@ -29,34 +25,6 @@ router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
   ]}).then((posts) => posts.filter((e) => (req.params.radius > getMiles(geoSphere.computeDistanceBetween({lat:e.lattitude ,lng: e.longitude}, {lat: req.params.lat, lng: req.params.lng}))))).then((p) => res.status(201).json(p));
 });
 
-//get all posts for a hastag order by most recent creation date
-/**router.get('/:hashTag', (req, res, next) => {
-    Post.findAll({where: {
-        hashTag: [req.params.hashTag]
-    }}).then((posts) => res.status(201).json(posts));
-});**/
-
-//get posts with highest votes, order by DESC upVotes
-/**router.get('/', (req, res, next) => {
-    Post.findAll({order:[
-            ['upVote', 'DESC']
-    ]}).then((posts) => res.status(201).json(posts));
-});**/
-
-
-//post with lowest down votes order by DESC down votes
-/**
-router.get('/', (req, res, next) => {
-    Post.findAll({order:[
-            ['downVote']
-    ]}).then((posts) => res.status(201).json(posts));
-});
-**/
-
-//get trending hash tags (used the most)
-/**router.get('/trending/hashTag', (req, res, next) => {
-
-});**/
 //get number of likes for a post
 router.get('/likes/post/:id', (req, res, next) => {
   Post.findByPk(req.params.id).then((post) => {
@@ -64,33 +32,61 @@ router.get('/likes/post/:id', (req, res, next) => {
   })
 })
 
-
-//get the best posts based on likes.
-router.get('/', async (req, res, next) => {
-    let postLikes = [];
-
-    const allPosts = await Post.findAll()
-      //console.log(allPosts.length)
-      //res.send(`${allPosts.length}`)
-      for (let i = 0; i < allPosts.length; i++) {
-        console.log("ME");
-        //  allPosts[i].countLikes().then((likes) => {postLikes.push(likes)}).then((likes) => res.status(201).json(likes))
-        const allLikes = {post: allPosts[i], count: await allPosts[i].countLikes()}
-        postLikes.push(allLikes);
-      //  .then((likeCount) => {postLikes.push(likeCount)});
-      }
-      const sortedPosts = postLikes.sort((a, b) => {return b.count - a.count})
-      res.status(201).json(sortedPosts);
-  //  }).then((allLikeCounts) => res.status(201).json(allLikeCounts));
+//get number of dislikes for a post
+router.get('/dislikes/post/:id', (req, res, next) => {
+  Post.findByPk(req.params.id).then((post) => {
+    post.countDislikes().then((post) => res.json(post))
+  })
 })
 
+//TODO: recycler view
+//get all time best posts based on vote count.
+router.get('/best', async (req, res, next) => {
+
+    let postLikes = [];
+    const allPosts = await Post.findAll()
+
+    for (let i = 0; i < allPosts.length; i++) {
+        const allLikes = {post: allPosts[i], count: await allPosts[i].countLikes() - await allPosts[i].countDislikes()}
+        postLikes.push(allLikes);
+    }
+
+    const sortedPosts = postLikes.sort((a, b) => {return b.count - a.count})
+    res.status(201).json(sortedPosts);
+})
+
+//get all time worst posts based on vote count.
+router.get('/worst', async (req, res, next) => {
+
+    let postLikes = [];
+    const allPosts = await Post.findAll()
+
+    for (let i = 0; i < allPosts.length; i++) {
+        const allLikes = {post: allPosts[i], count: await allPosts[i].countLikes() - await allPosts[i].countDislikes()}
+        postLikes.push(allLikes);
+    }
+
+    const sortedPosts = postLikes.sort((a, b) => {return a.count - b.count})
+    res.status(201).json(sortedPosts);
+})
+
+//user likes a post
 router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
   Post.findByPk(req.params.postid).then((post) => {
     console.log("POST" , post.id);
-    // console.log(post);
+    //console.log(post);
     // post.addLike([post]).then((post) => res.json(post))
     User.findByPk(req.params.userid).then(user => {
       post.addLike(user).then(like => res.json(like))
+    })
+  })
+})
+
+//user Dislikes a post
+router.post('/dislikes/post/:postid/user/:userid', (req, res, next) => {
+  Post.findByPk(req.params.postid).then((post) => {
+    User.findByPk(req.params.userid).then(user => {
+      post.addDislike(user).then(like => res.json(like))
     })
   })
 })
@@ -100,20 +96,16 @@ router.post('/', (req, res, next) => {
     Post.create(req.body).then((post) => res.status(201).json(post));
 });
 
+//update post by id
 router.put('/:id', (req, res, next) => {
     Post.findByPk(req.params.id).then((post) => post.update(req.body)).then((updatedPost) => res.status(201).json(updatedPost));
 });
 
+//delete post by id
 router.delete('/:id', (req, res, next) => {
     Post.destroy({
       where:{id: req.params.id}
     }).then((post) => res.status(201).json(post));
 });
-
-
-
-/**router.delete('/:id', (req, res, next) => {
-
-});**/
 
 module.exports = router;
