@@ -21,7 +21,8 @@ router.get('/thought', async (req, res, next) => {
       const allLikes = {
         post: allPosts[i],
         comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
-        count: await allPosts[i].countLikes() - await allPosts[i].countDislikes()
+        count: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
+        tag: await userPosts[i].getTags()
       }
         //console.log("COMMENT:", allLikes.comment)
         //console.log("DATE:" , allLikes.post.createdAt)
