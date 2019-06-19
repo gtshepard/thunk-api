@@ -4,6 +4,14 @@
 
 - The REST Interface's availible endpoints are listed below in conjucntion with HTTP method needed to make a request to each endpoint
 
+##### Auth
+
+###### sign in with google (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google ```
+
+###### logout (DELETE)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
+
 ##### User
 
 ###### get all users (GET)
@@ -19,6 +27,8 @@
 
 ##### Posts
 
+###### get all posts (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post```
 ###### get all posts made by a specific user (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/user/:userid```
 ###### get all posts within x miles of the users location (where x is the distance radius) (GET)
@@ -79,4 +89,11 @@
 
 ##### Examples
 
+```{
+      "text": "i've thunk, and heres my thought. i love this app"
+      lattitude: ,
+      longitude: dataType.DOUBLE,
+      report: dataType.STRIN
+  
+}```
 
