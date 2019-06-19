@@ -13,7 +13,12 @@
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
 
 ##### Thoughts 
+
+###### get all thoughts
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
+###### get all thoughts for a specific user 
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
+
 
 ##### User
 
