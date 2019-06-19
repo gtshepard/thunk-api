@@ -1,10 +1,15 @@
 const router = require('express').Router();
-//const studentRouter = require('./student');
-//const campusRouter = require('./campus');
-const {User, Post, Comment} = require('../data_model/index');
+const userRouter = require('./user');
+const postRouter = require('./post');
+const authRouter = require('../auth/oauth');
+const commentRouter = require('./comment');
+const tagRouter = require('./tag');
+const {User, Post, Comment, Tag} = require('../data_model/index');
 
-//set up routes for student and campus interface files
-//router.use("/students", studentRouter);
-//router.use("/campuses", campusRouter);
+router.use("/auth/google", authRouter);
+router.use("/user", userRouter);
+router.use("/post", postRouter);
+router.use("/comment", commentRouter);
+router.use("/tag", tagRouter);
 
 module.exports = router;

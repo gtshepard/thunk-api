@@ -1,26 +1,45 @@
 const router = require('express').Router();
-const {User, Post, Comment} = require('../data_model/index');
-/**
-  router.get('/', (req, res) => {
-    Campus.findAll().then(campuses => res.json(campuses))
-  });
+const {User} = require('../data_model/index');
+const passport = require('passport');
 
-  router.get('/:id', (req, res, next) => {
-     Campus.findByPk(req.params.id).then((result) => res.status(201).json(result));
-  });
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
 
-  router.post('/', (req, res) =>{
-    Campus.create(req.body).then((result) => res.status(201).json(result));
-  });
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user)
+  } catch (err){
+    done(err);
+  }
+});
 
-  router.put('/:id', (req, res) => {
-      Campus.findByPk(req.params.id).then((campus) => campus.update(req.body)).then((updatedCampus) => res.status(201).json(updatedCampus))
-  });
+//get all users
+router.get('/', (req, res, next) => {
+    User.findAll().then((users) => res.status(201).json(users));
+});
 
-  router.delete('/:id', (req, res) => {
-    Campus.destroy({
-        where: { id: req.params.id }
-    }).then(campus => res.status(201).json(campus));
-  });
-**/
+//get user by id
+router.get('/:userid', (req, res, next) => {
+    User.findByPk(req.params.userid).then((user) => res.status(201).json(user));
+});
+
+//create a user
+router.post('/', (req, res, next) => {
+    User.create(req.body).then((user) => res.status(201).json(user));
+});
+
+//update a user
+router.put('/:id', (req, res, next) => {
+    User.findByPk(req.params.id).then((user) => user.update(req.body)).then((updatedUser) => res.status(201).json(updatedUser));
+});
+
+//delete a user
+router.delete('/:id', (req, res, next) => {
+    User.destroy({
+      where:{id: req.params.id}
+    }).then((user) => res.status(201).json(user));
+});
+
 module.exports = router
