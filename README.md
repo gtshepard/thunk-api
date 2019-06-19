@@ -1,17 +1,8 @@
 ## RESTful API for Thunk (social media app - anonymous thought sharing)
 
-### Tech Stack 
-  - Node.js + Express + Sequelize + PostgreSQL
-  
-### How To Run This Program
-  - verify Node is installed ``` npm -v ```
-  - if not ```sudo apt install nodejs```
-  - then run ```npm install``` to install the latest dependencies.
-  - then run ```node app.js``` to start the server.  
-  - make sure you have a relational database of your choice configured to run. 
-  
-- the api has the following endpoints (were the colon (:) denotes a parameter)
-end points are grouped by the HTTP methods that can call them. 
+#### USAGE 
+
+- The REST Interface's availible endpoints are listed below in conjucntion with HTTP method needed to make a request to each endpoint 
 
 ##### User
 
@@ -75,14 +66,16 @@ end points are grouped by the HTTP methods that can call them.
 ###### create a tag for a post (POST)
 - ```/api/v1/tag/post/:postid```
 
-##### Coming soon 
+#### Coming soon 
 
+##### Post 
+###### get all posts with specific tag (GET)
+###### get vote count for post 
+
+##### Tag 
 ###### delete a tag (DELETE)
 ###### get trending tags (GET)
 ###### get number of occurences of a specific tag (GET)
-###### get all posts with specific tag (GET)
-
-
 
 an example call on when the server is running on the local machine. 
 - http://localhost:3000/api/v1/users
@@ -90,3 +83,20 @@ an example call on when the server is running on the local machine.
 (NOTE will need to specify) 
 the HTTP method associated with the request with your code, for example if you are using  )
 - axios.get('http://localhost:3000/api/v1/users')
+
+
+### Tech Stack 
+  - Node.js + Express + Sequelize + PostgreSQL
+  
+### How To Run This Program
+  - verify Node is installed ``` npm -v ```
+  - if not ```sudo apt install nodejs```
+  - go to project dir 
+  - ```npm init ```
+  - then run ```npm install``` to install the latest dependencies.
+  - then run ```nodemon app.js``` to start the server.  
+  - make sure you have a relational database of your choice configured to run. 
+  
+- the api has the following endpoints (were the colon (:) denotes a parameter)
+end points are grouped by the HTTP methods that can call them. 
+
