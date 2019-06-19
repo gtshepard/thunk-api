@@ -5,45 +5,34 @@ const UserModel = require('./UserModel.js');
 const PostModel = require('./PostModel.js');
 const CommentModel = require('./CommentModel.js');
 const TagModel = require('./TagModel.js');
-//const PostHashTagModel = require('./PostHashTagModel.js');
+
 //init data models
 const User = UserModel(Sequelize, Database);
 const Post = PostModel(Sequelize, Database);
 const Comment = CommentModel(Sequelize, Database);
 const Tag = TagModel(Sequelize, Database);
-//const PostHashTag = PostHashTagModel(Sequelize, Database);
-console.log(Post, User, Comment);
 
 //user -> posts relationship 1 user has many  posts (1:N)
 Post.belongsTo(User);
 User.hasMany(Post);
-
 //post -> comment relationship 1 post has many users (1:N)
 Comment.belongsTo(Post);
 Post.hasMany(Comment);
-
 //user -> comment relationship 1 post has many users (1:N)
 Comment.belongsTo(User);
 User.hasMany(Comment);
-
-//return user.addTodos([todo]) keep this in mind when making hashtag
-//user.addProject(project, { through: { status: 'started' }}) somthing you would do in post req
+// tag -> psot relationship many Tags belong to many posts (N:M)
 Tag.belongsToMany(Post, {through: 'post_tags'});
+// post  -> tag relationship many posts belong to many tags (N:M)
 Post.belongsToMany(Tag, {through: 'post_tags'});
-
+// user likes post relationship many users like to many posts (N:M)
 User.belongsToMany(Post, {as: 'Likes', through: 'likes'});
+// post are liked by users  relationship many posts liked  by users (N:M)
 Post.belongsToMany(User, {as: 'Likes', through: 'likes'});
-
+// user dislikes post relationship many users dislike to many posts (N:M)
 User.belongsToMany(Post, {as: 'Dislikes', through: 'dislikes'});
+// post are disliked by users  relationship many posts disliked  by users (N:M)
 Post.belongsToMany(User, {as: 'Dislikes', through: 'dislikes'});
-
-//connect to Database
-//Database.sync().then(() => {
-  // console.log("db and tables created");
-
-
-//});
-
 
 const seed = async () => {
   try {
@@ -59,7 +48,6 @@ const seed = async () => {
       distance_radius: '1.0'
     })
 
-
     await User.create({
       google_id: 'CCC',
       distance_radius: '3.0'
@@ -72,7 +60,7 @@ const seed = async () => {
 
 
     await Post.create({
-      text: 'test post 1.1',
+      text: 'pizza for luch',
       downVote: 1,
       upVote: 2,
       lattitude: 40.697835,
@@ -81,7 +69,7 @@ const seed = async () => {
       userId: 1
     })
     await Post.create({
-      text: 'test post 1.2',
+      text: 'concert feat. the weeknd this sunday!',
       downVote: 5,
       upVote: 2,
       lattitude: 40.697835,
@@ -91,7 +79,7 @@ const seed = async () => {
     })
 
     await Post.create({
-      text: 'test post 2.1',
+      text: 'my first time in new york wasssup?',
       downVote: 54,
       upVote: 100,
       lattitude: 40.730876,
@@ -101,7 +89,7 @@ const seed = async () => {
     })
 
     await Post.create({
-      text: 'test post 2.2',
+      text: 'why is the sky blue?',
       downVote: 4,
       upVote: 0,
       lattitude: 40.730876,
@@ -111,7 +99,7 @@ const seed = async () => {
     })
 
     await Post.create({
-      text: 'test post 2.3',
+      text: 'to think is to know, to know is to think',
       downVote: 1,
       upVote: 60,
       lattitude: 40.730876,
@@ -121,7 +109,7 @@ const seed = async () => {
     })
 
     await Post.create({
-      text: 'test post 3.1',
+      text: 'were hot dogs named after dogs, or were dogs named after hot dogs',
       downVote: 1,
       upVote: 10,
       lattitude: 40.729753,
@@ -131,7 +119,7 @@ const seed = async () => {
     })
 
     await Post.create({
-      text: 'test post 4.1',
+      text: 'why is 1 + 1 = 2 and not 11',
       downVote: 15,
       upVote: 1,
       lattitude:40.393044,
@@ -141,7 +129,7 @@ const seed = async () => {
     })
 
     await Post.create({
-      text: 'test post 4.2',
+      text: 'my posts are da bomb',
       downVote: 15,
       upVote: 1,
       lattitude:40.393044,
@@ -150,8 +138,9 @@ const seed = async () => {
       userId: 4
     })
 
+    //load comments
     await Comment.create({
-      text: 'user 4  on post 1 ',
+      text: 'i never run out of things to post, lookes like you did',
       report: 10,
       markOwner: false,
       postId: 1,
@@ -159,7 +148,7 @@ const seed = async () => {
     })
 
     await Comment.create({
-      text: 'user 2  on post 2 ',
+      text: 'lame.... ',
       report: 10,
       markOwner: false,
       postId: 2,
@@ -167,7 +156,7 @@ const seed = async () => {
     })
 
     await Comment.create({
-      text: 'user 1 on post 4',
+      text: 'YASSSSSSSSS',
       report: 10,
       markOwner: false,
       postId: 4,
@@ -175,12 +164,71 @@ const seed = async () => {
     })
 
     await Comment.create({
-      text: 'user 2 on post 3',
+      text: 'get it',
       report: 10,
       markOwner: false,
       postId: 3,
       userId: 2
     })
+
+    //load tags
+    const postToTag1 = await Post.findByPk(1)
+    await postToTag1.createTag({
+        tag: 'pizza'
+    })
+
+    const postToTag2 = await Post.findByPk(1)
+    await postToTag2.createTag({
+        tag: 'lunch'
+    })
+    const postToTag3 = await Post.findByPk(1)
+    await postToTag3.createTag({
+        tag: 'cheatday'
+    })
+
+    const postToTag4 = await Post.findByPk(2)
+    await postToTag4.createTag({
+        tag: 'sundayfunday'
+    })
+
+    const postToTag5= await Post.findByPk(2)
+    await postToTag5.createTag({
+        tag: 'theweeknd'
+    })
+
+    const postToTag6 = await Post.findByPk(3)
+    await postToTag6.createTag({
+        tag: 'myfirsttime'
+    })
+
+    //users liking posts
+    const postToLike1 = await Post.findByPk(1)
+    const userToLikePost1 = await User.findByPk(1)
+    await postToLike1.addLike(userToLikePost1)
+
+    const postToLike2 = await Post.findByPk(1)
+    const userToLikePost2 = await User.findByPk(2)
+    await postToLike2.addLike(userToLikePost2)
+
+    const postToLike3 = await Post.findByPk(2)
+    const userToLikePost3 = await User.findByPk(1)
+    await postToLike3.addLike(userToLikePost3)
+
+    const postToLike4 = await Post.findByPk(3)
+    const userToLikePost4 = await User.findByPk(3)
+    await postToLike4.addLike(userToLikePost4)
+
+    const postToDislike1 = await Post.findByPk(3)
+    const userToDislikePost1 = await User.findByPk(3)
+    await postToDislike1.addDislike(userToDislikePost1)
+
+    const postToDislike2 = await Post.findByPk(1)
+    const userToDislikePost2 = await User.findByPk(4)
+    await postToDislike2.addDislike(userToDislikePost2)
+
+    const postToDislike3 = await Post.findByPk(2)
+    const userToDislikePost3 = await User.findByPk(4)
+    await postToDislike3.addDislike(userToDislikePost3)
 
     console.log(`
       Seed success!
