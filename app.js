@@ -28,8 +28,10 @@ app.use(morgan('dev'));
 //body parsing middleware
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
+
 //allow cross domain
 app.use(allowCrossDomain);
+
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
@@ -43,6 +45,7 @@ app.use(passport.session());
 app.get('/google2f484170efc3e9f0.html', (req, res, next) => {
     res.send('google-site-verification: google2f484170efc3e9f0.html')
 })
+
 app.use("/api/v1", apiRouter);
 
 app.use((err, req, res, next) => {

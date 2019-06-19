@@ -1,47 +1,16 @@
 const router = require('express').Router();
-const {User, Post, Comment} = require('../data_model/index');
+const {User, Post, Comment, Tag} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
-
 
 //get all posts
 router.get('/', (req, res, next) => {
     Post.findAll().then((posts) => res.status(201).json(posts));
 });
 
-//get all thoughts
-router.get('/thought', async (req, res, next) => {
-  let postLikes = [];
-  try {
-    const allPosts = await Post.findAll({order: [
-      ['createdAt', 'DESC']
-    ]})
-    console.log("POST DATE", allPosts[0].createdAt)
-    for (let i = 0; i < allPosts.length; i++) {
-
-      const allLikes = {
-        post: allPosts[i],
-        comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
-        count: await allPosts[i].countLikes() - await allPosts[i].countDislikes()
-      }
-        //console.log("COMMENT:", allLikes.comment)
-        //console.log("DATE:" , allLikes.post.createdAt)
-        postLikes.push(allLikes);
-    }
-
-    console.log("ARRRY:" , postLikes);
-    const sortedPosts = postLikes.sort((a, b) => {return a.count - b.count})
-    res.status(201).json(sortedPosts);
-  } catch (err){
-      console.log(err);
-  }
-});
-
-
 //get all posts made by a specific user
-router.get('/user/:id', (req, res, next) => {
-    Post.findAll({where:{userId:[req.params.id]}}).then((posts) => res.status(201).json(posts));
+router.get('/user/:userid', (req, res, next) => {
+    Post.findAll({where:{userId:[req.params.userid]}}).then((posts) => res.status(201).json(posts));
 });
-
 
 //get feed for a user (posts with in the location radius of the user)
 router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
@@ -67,9 +36,6 @@ router.get('/likes/post/:id', (req, res, next) => {
     post.countLikes().then((post) => res.json(post))
   })
 })
-
-
-
 
 //get number of dislikes for a post
 router.get('/dislikes/post/:id', (req, res, next) => {
@@ -143,5 +109,12 @@ router.delete('/:id', (req, res, next) => {
       where:{id: req.params.id}
     }).then((post) => res.status(201).json(post));
 });
-
+//TODO: add table of contents to 
+//TODO: report update value (many to many relationship)
+//TODO: user account creation
+//must be authenticated to use any endpoint
+//TODO: trending tags  ()
+//TODO: post by tag (thought format)
+//TODO: best and worst in thought
+//TODO: take in an array of tags
 module.exports = router;

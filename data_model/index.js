@@ -35,6 +35,7 @@ User.belongsToMany(Post, {as: 'Dislikes', through: 'dislikes'});
 // post are disliked by users  relationship many posts disliked  by users (N:M)
 Post.belongsToMany(User, {as: 'Dislikes', through: 'dislikes'});
 
+
 const seed = async () => {
   try {
     await Database.sync({force: true})
