@@ -14,9 +14,7 @@ app.use(morgan('dev'));
 //body parsing middleware
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
-app.get('/google2f484170efc3e9f0.html', (req, res, next) => {
-    res.send('google2f484170efc3e9f0.html')
-})
+
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
