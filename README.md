@@ -112,6 +112,7 @@
 - all ```/thought``` endpoints return an array of thoughts. format of a thought is as follows 
 ``` json 
       {
+             "user": {},
              "post":{},
              "comment":[],
              "count": 0,
@@ -129,14 +130,21 @@
 ```json 
 [
     {
+        "user": {
+            "id": 3,
+            "google_id": "CCC",
+            "distance_radius": 3,
+            "createdAt": "2019-06-19T21:36:19.108Z",
+            "updatedAt": "2019-06-19T21:36:19.108Z"
+        },
         "post": {
             "id": 6,
             "text": "were hot dogs named after dogs, or were dogs named after hot dogs",
             "lattitude": 40.729753,
             "longitude": -73.99378,
             "report": "1",
-            "createdAt": "2019-06-19T20:07:12.183Z",
-            "updatedAt": "2019-06-19T20:07:12.183Z",
+            "createdAt": "2019-06-19T21:36:19.138Z",
+            "updatedAt": "2019-06-19T21:36:19.138Z",
             "userId": 3
         },
         "comment": [],
@@ -144,14 +152,21 @@
         "tag": []
     },
     {
+        "user": {
+            "id": 2,
+            "google_id": "BBB",
+            "distance_radius": 1,
+            "createdAt": "2019-06-19T21:36:19.105Z",
+            "updatedAt": "2019-06-19T21:36:19.105Z"
+        },
         "post": {
             "id": 5,
             "text": "to think is to know, to know is to think",
             "lattitude": 40.730876,
             "longitude": -73.992002,
             "report": "1",
-            "createdAt": "2019-06-19T20:07:12.176Z",
-            "updatedAt": "2019-06-19T20:07:12.176Z",
+            "createdAt": "2019-06-19T21:36:19.134Z",
+            "updatedAt": "2019-06-19T21:36:19.134Z",
             "userId": 2
         },
         "comment": [],
@@ -159,14 +174,21 @@
         "tag": []
     },
     {
+        "user": {
+            "id": 2,
+            "google_id": "BBB",
+            "distance_radius": 1,
+            "createdAt": "2019-06-19T21:36:19.105Z",
+            "updatedAt": "2019-06-19T21:36:19.105Z"
+        },
         "post": {
             "id": 4,
             "text": "why is the sky blue?",
             "lattitude": 40.730876,
             "longitude": -73.992002,
             "report": "1",
-            "createdAt": "2019-06-19T20:07:12.169Z",
-            "updatedAt": "2019-06-19T20:07:12.169Z",
+            "createdAt": "2019-06-19T21:36:19.131Z",
+            "updatedAt": "2019-06-19T21:36:19.131Z",
             "userId": 2
         },
         "comment": [
@@ -175,8 +197,8 @@
                 "text": "YASSSSSSSSS",
                 "report": 10,
                 "markOwner": false,
-                "createdAt": "2019-06-19T20:07:12.220Z",
-                "updatedAt": "2019-06-19T20:07:12.220Z",
+                "createdAt": "2019-06-19T21:36:19.160Z",
+                "updatedAt": "2019-06-19T21:36:19.160Z",
                 "postId": 4,
                 "userId": 1
             }
@@ -185,14 +207,21 @@
         "tag": []
     },
     {
+        "user": {
+            "id": 2,
+            "google_id": "BBB",
+            "distance_radius": 1,
+            "createdAt": "2019-06-19T21:36:19.105Z",
+            "updatedAt": "2019-06-19T21:36:19.105Z"
+        },
         "post": {
             "id": 3,
             "text": "my first time in new york wasssup?",
             "lattitude": 40.730876,
             "longitude": -73.992002,
             "report": "1",
-            "createdAt": "2019-06-19T20:07:12.163Z",
-            "updatedAt": "2019-06-19T20:07:12.163Z",
+            "createdAt": "2019-06-19T21:36:19.128Z",
+            "updatedAt": "2019-06-19T21:36:19.128Z",
             "userId": 2
         },
         "comment": [
@@ -201,8 +230,8 @@
                 "text": "get it",
                 "report": 10,
                 "markOwner": false,
-                "createdAt": "2019-06-19T20:07:12.228Z",
-                "updatedAt": "2019-06-19T20:07:12.228Z",
+                "createdAt": "2019-06-19T21:36:19.163Z",
+                "updatedAt": "2019-06-19T21:36:19.163Z",
                 "postId": 3,
                 "userId": 2
             }
@@ -212,11 +241,11 @@
             {
                 "id": 6,
                 "tag": "myfirsttime",
-                "createdAt": "2019-06-19T20:07:12.366Z",
-                "updatedAt": "2019-06-19T20:07:12.366Z",
+                "createdAt": "2019-06-19T21:36:19.243Z",
+                "updatedAt": "2019-06-19T21:36:19.243Z",
                 "post_tags": {
-                    "createdAt": "2019-06-19T20:07:12.378Z",
-                    "updatedAt": "2019-06-19T20:07:12.378Z",
+                    "createdAt": "2019-06-19T21:36:19.248Z",
+                    "updatedAt": "2019-06-19T21:36:19.248Z",
                     "tagId": 6,
                     "postId": 3
                 }
