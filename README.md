@@ -89,11 +89,12 @@
 
 ##### Examples
 
-```{
+###### for POST requests creating a thought
+
+``` {
       "text": "i've thunk, and heres my thought. i love this app"
-      lattitude: ,
-      longitude: dataType.DOUBLE,
-      report: dataType.STRIN
-  
-}```
+      "lattitude": "40.748778" ,
+      longitude: "-73.985643",
+      report: "1"
+} ```
 
