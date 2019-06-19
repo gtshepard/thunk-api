@@ -7,7 +7,7 @@ const geoSphere = require('spherical-geometry-js');
 router.get('/', (req, res, next) => {
     Post.findAll().then((posts) => res.status(201).json(posts));
 });
-
+/**
 //get all thoughts
 router.get('/thought', async (req, res, next) => {
   let postLikes = [];
@@ -37,8 +37,9 @@ router.get('/thought', async (req, res, next) => {
 });
 
 //get all thoughts made by a specific user
-router.get('/thoughts/user/:userid', async (req, res, next) => {
+router.get('/thought/:id', async (req, res, next) => {
     let userThoughts = []
+
     try {
 
       const userPosts = await Post.findAll({
@@ -64,7 +65,7 @@ router.get('/thoughts/user/:userid', async (req, res, next) => {
       console.log(err)
     }
 })
-
+**/
 
 //get all posts made by a specific user
 router.get('/user/:userid', (req, res, next) => {
