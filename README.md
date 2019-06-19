@@ -134,8 +134,8 @@
             "id": 3,
             "google_id": "CCC",
             "distance_radius": 3,
-            "createdAt": "2019-06-19T21:36:19.108Z",
-            "updatedAt": "2019-06-19T21:36:19.108Z"
+            "createdAt": "2019-06-19T21:50:48.003Z",
+            "updatedAt": "2019-06-19T21:50:48.003Z"
         },
         "post": {
             "id": 6,
@@ -143,12 +143,12 @@
             "lattitude": 40.729753,
             "longitude": -73.99378,
             "report": "1",
-            "createdAt": "2019-06-19T21:36:19.138Z",
-            "updatedAt": "2019-06-19T21:36:19.138Z",
+            "createdAt": "2019-06-19T21:50:48.055Z",
+            "updatedAt": "2019-06-19T21:50:48.055Z",
             "userId": 3
         },
         "comment": [],
-        "count": 0,
+        "vote": 0,
         "tag": []
     },
     {
@@ -156,8 +156,8 @@
             "id": 2,
             "google_id": "BBB",
             "distance_radius": 1,
-            "createdAt": "2019-06-19T21:36:19.105Z",
-            "updatedAt": "2019-06-19T21:36:19.105Z"
+            "createdAt": "2019-06-19T21:50:47.997Z",
+            "updatedAt": "2019-06-19T21:50:47.997Z"
         },
         "post": {
             "id": 5,
@@ -165,12 +165,12 @@
             "lattitude": 40.730876,
             "longitude": -73.992002,
             "report": "1",
-            "createdAt": "2019-06-19T21:36:19.134Z",
-            "updatedAt": "2019-06-19T21:36:19.134Z",
+            "createdAt": "2019-06-19T21:50:48.050Z",
+            "updatedAt": "2019-06-19T21:50:48.050Z",
             "userId": 2
         },
         "comment": [],
-        "count": 0,
+        "vote": 0,
         "tag": []
     },
     {
@@ -178,8 +178,8 @@
             "id": 2,
             "google_id": "BBB",
             "distance_radius": 1,
-            "createdAt": "2019-06-19T21:36:19.105Z",
-            "updatedAt": "2019-06-19T21:36:19.105Z"
+            "createdAt": "2019-06-19T21:50:47.997Z",
+            "updatedAt": "2019-06-19T21:50:47.997Z"
         },
         "post": {
             "id": 4,
@@ -187,8 +187,8 @@
             "lattitude": 40.730876,
             "longitude": -73.992002,
             "report": "1",
-            "createdAt": "2019-06-19T21:36:19.131Z",
-            "updatedAt": "2019-06-19T21:36:19.131Z",
+            "createdAt": "2019-06-19T21:50:48.044Z",
+            "updatedAt": "2019-06-19T21:50:48.044Z",
             "userId": 2
         },
         "comment": [
@@ -197,13 +197,13 @@
                 "text": "YASSSSSSSSS",
                 "report": 10,
                 "markOwner": false,
-                "createdAt": "2019-06-19T21:36:19.160Z",
-                "updatedAt": "2019-06-19T21:36:19.160Z",
+                "createdAt": "2019-06-19T21:50:48.088Z",
+                "updatedAt": "2019-06-19T21:50:48.088Z",
                 "postId": 4,
                 "userId": 1
             }
         ],
-        "count": 0,
+        "vote": 0,
         "tag": []
     },
     {
@@ -211,8 +211,8 @@
             "id": 2,
             "google_id": "BBB",
             "distance_radius": 1,
-            "createdAt": "2019-06-19T21:36:19.105Z",
-            "updatedAt": "2019-06-19T21:36:19.105Z"
+            "createdAt": "2019-06-19T21:50:47.997Z",
+            "updatedAt": "2019-06-19T21:50:47.997Z"
         },
         "post": {
             "id": 3,
@@ -220,8 +220,8 @@
             "lattitude": 40.730876,
             "longitude": -73.992002,
             "report": "1",
-            "createdAt": "2019-06-19T21:36:19.128Z",
-            "updatedAt": "2019-06-19T21:36:19.128Z",
+            "createdAt": "2019-06-19T21:50:48.038Z",
+            "updatedAt": "2019-06-19T21:50:48.038Z",
             "userId": 2
         },
         "comment": [
@@ -230,22 +230,22 @@
                 "text": "get it",
                 "report": 10,
                 "markOwner": false,
-                "createdAt": "2019-06-19T21:36:19.163Z",
-                "updatedAt": "2019-06-19T21:36:19.163Z",
+                "createdAt": "2019-06-19T21:50:48.094Z",
+                "updatedAt": "2019-06-19T21:50:48.094Z",
                 "postId": 3,
                 "userId": 2
             }
         ],
-        "count": 0,
+        "vote": 0,
         "tag": [
             {
                 "id": 6,
                 "tag": "myfirsttime",
-                "createdAt": "2019-06-19T21:36:19.243Z",
-                "updatedAt": "2019-06-19T21:36:19.243Z",
+                "createdAt": "2019-06-19T21:50:48.205Z",
+                "updatedAt": "2019-06-19T21:50:48.205Z",
                 "post_tags": {
-                    "createdAt": "2019-06-19T21:36:19.248Z",
-                    "updatedAt": "2019-06-19T21:36:19.248Z",
+                    "createdAt": "2019-06-19T21:50:48.214Z",
+                    "updatedAt": "2019-06-19T21:50:48.214Z",
                     "tagId": 6,
                     "postId": 3
                 }
