@@ -110,9 +110,9 @@ router.delete('/:id', (req, res, next) => {
     }).then((post) => res.status(201).json(post));
 });
 
-//TODO: report update
+//TODO: report update value. 
 //TODO: user account creation
-//authenctication on each endpoint
+//must be authenticated to use any endpoint
 //TODO: tredning tags  ()
 //TODO: post by tag (thought format)
 //TODO: best and worst in thought

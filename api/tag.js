@@ -15,7 +15,7 @@ router.get('/:tag', (req, res, next) => {
 });
 
 //get all hashtags for a user
-
+//users shoudl not have to do cors plugin
 //get most popluar tags
 
 //create a tag for a post

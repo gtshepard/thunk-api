@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
         user: await User.findByPk(allPosts[i].userId),
         post: allPosts[i],
         comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
-        count: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
+        vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
         tag: await allPosts[i].getTags()
       }
         allThoughts.push(thought);
@@ -45,7 +45,7 @@ router.get('/user/:userid', async (req, res, next) => {
             user: await User.findByPk(userPosts[i].userId),
             post: userPosts[i],
             comment: await Comment.findAll({where:{postId:[userPosts[i].id]}}),
-            count: await userPosts[i].countLikes() - await userPosts[i].countDislikes(),
+            vote: await userPosts[i].countLikes() - await userPosts[i].countDislikes(),
             tag: await userPosts[i].getTags()
           }
             userThoughts.push(thought);
@@ -79,7 +79,7 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
             user: await User.findByPk(postsInUserLocation[i].userId),
             post: postsInUserLocation[i],
             comment: await Comment.findAll({where:{postId:[postsInUserLocation[i].id]}}),
-            count: await postsInUserLocation[i].countLikes() - await postsInUserLocation[i].countDislikes(),
+            vote: await postsInUserLocation[i].countLikes() - await postsInUserLocation[i].countDislikes(),
             tag: await postsInUserLocation[i].getTags()
           }
           thoughtsInUserLocation.push(thought);
