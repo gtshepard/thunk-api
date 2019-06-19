@@ -15,11 +15,9 @@ const Tag = TagModel(Sequelize, Database);
 //user -> posts relationship 1 user has many  posts (1:N)
 Post.belongsTo(User);
 User.hasMany(Post);
-
 //post -> comment relationship 1 post has many users (1:N)
 Comment.belongsTo(Post);
 Post.hasMany(Comment);
-
 //user -> comment relationship 1 post has many users (1:N)
 Comment.belongsTo(User);
 User.hasMany(Comment);
