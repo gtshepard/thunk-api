@@ -1,7 +1,7 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
-//const Database = new Sequelize('postgres://' + process.env.DATABASE_USER + ':' + process.env.DATABASE_PASS + '@localhost/' + process.env.DATABASE_NAME);
-const Database = new Sequelize(process.env.DATABASE_URL);
+const Database = new Sequelize('postgres://' + process.env.DATABASE_USER + ':' + process.env.DATABASE_PASS + '@localhost/' + process.env.DATABASE_NAME);
+//const Database = new Sequelize(process.env.DATABASE_URL);
 const UserModel = require('./UserModel.js');
 const PostModel = require('./PostModel.js');
 const CommentModel = require('./CommentModel.js');
@@ -34,6 +34,7 @@ Post.belongsToMany(User, {as: 'Likes', through: 'likes'});
 User.belongsToMany(Post, {as: 'Dislikes', through: 'dislikes'});
 // post are disliked by users  relationship many posts disliked  by users (N:M)
 Post.belongsToMany(User, {as: 'Dislikes', through: 'dislikes'});
+
 
 const seed = async () => {
   try {
