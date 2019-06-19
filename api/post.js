@@ -36,18 +36,17 @@ router.get('/thought', async (req, res, next) => {
       console.log(err);
   }
 });
-/**
+
 //get all thoughts made by a specific user
-router.get('/thought/:id', async (req, res, next) => {
+router.get('/thought/:userid', async (req, res, next) => {
     let userThoughts = []
 
     try {
-
       const userPosts = await Post.findAll({
             where:{
               userId:[req.params.id]
-            }
-          //  order:[['createdAt', 'DESC']]
+            },
+           order:[['createdAt', 'DESC']]
         })
 
         for(let i = 0; i < userPosts.length; i++) {
@@ -66,7 +65,6 @@ router.get('/thought/:id', async (req, res, next) => {
       console.log(err)
     }
 })
-**/
 
 //get all posts made by a specific user
 router.get('/user/:userid', (req, res, next) => {
