@@ -40,7 +40,6 @@ router.get('/user/:userid', async (req, res, next) => {
         })
 
         for(let i = 0; i < userPosts.length; i++) {
-
           const thought = {
             user: await User.findByPk(userPosts[i].userId),
             post: userPosts[i],
@@ -65,12 +64,10 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
     let thoughtsInUserLocation = []
 
     try {
-
         const postsbyMostRecent = await Post.findAll({
             order:[
               ['createdAt', 'DESC']
         ]})
-
         //get all posts within the distance radius of the user (maintains order)
         postsInUserLocation = postsbyMostRecent.filter((post) =>(req.params.radius > getMiles(geoSphere.computeDistanceBetween({lat: post.lattitude ,lng: post.longitude},{lat: req.params.lat, lng: req.params.lng}))))
 
@@ -92,10 +89,14 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
 
 
 router.get('/best', async (req, res, next) => {
-
     let allThoughts = [];
     try {
-      const allPosts = await Post.findAll()
+      
+      const allPosts = await Post.findAll({
+          order:[
+            ['createdAt', 'DESC']
+      ]})
+
       for (let i = 0; i < allPosts.length; i++) {
         const thought = {
           user: await User.findByPk(allPosts[i].userId),
@@ -115,8 +116,13 @@ router.get('/best', async (req, res, next) => {
 })
 
 router.get('/worst', async (req, res, next) => {
+  let allThoughts = [];
   try {
-    const allPosts = await Post.findAll()
+    const allPosts = await Post.findAll({
+        order:[
+          ['createdAt', 'DESC']
+    ]})
+
     for (let i = 0; i < allPosts.length; i++) {
       const thought = {
         user: await User.findByPk(allPosts[i].userId),
@@ -130,7 +136,7 @@ router.get('/worst', async (req, res, next) => {
   } catch(err) {
     console.log(err)
   }
-    const sortedPosts = postLikes.sort((a, b) => {return a.vote - b.vote})
+    const sortedPosts = allThoughts.sort((a, b) => {return a.vote - b.vote})
     res.status(201).json(sortedPosts);
 })
 
