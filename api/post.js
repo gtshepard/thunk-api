@@ -1,70 +1,11 @@
 const router = require('express').Router();
-const {User, Post, Comment} = require('../data_model/index');
+const {User, Post, Comment, Tag} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
-
 
 //get all posts
 router.get('/', (req, res, next) => {
     Post.findAll().then((posts) => res.status(201).json(posts));
 });
-
-//get all thoughts
-router.get('/thought', async (req, res, next) => {
-  let postLikes = [];
-  try {
-    const allPosts = await Post.findAll({order: [
-      ['createdAt', 'DESC']
-    ]})
-
-    for (let i = 0; i < allPosts.length; i++) {
-
-      const allLikes = {
-        post: allPosts[i],
-        comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
-        count: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
-        tag: await allPosts[i].getTags()
-      }
-        //console.log("COMMENT:", allLikes.comment)
-        //console.log("DATE:" , allLikes.post.createdAt)
-        postLikes.push(allLikes);
-    }
-
-    //console.log("ARRRY:" , postLikes);
-    //const sortedPosts = postLikes.sort((a, b) => {return a.count - b.count})
-    res.status(201).json(postLikes);
-  } catch (err){
-      console.log(err);
-  }
-});
-
-//get all thoughts made by a specific user
-router.get('/thought/:userid', async (req, res, next) => {
-    let userThoughts = []
-
-    try {
-      const userPosts = await Post.findAll({
-            where:{
-              userId:[req.params.id]
-            },
-           order:[['createdAt', 'DESC']]
-        })
-
-        for(let i = 0; i < userPosts.length; i++) {
-
-          const thought = {
-            post: userPosts[i],
-            comment: await Comment.findAll({where:{postId:[userPosts[i].id]}}),
-            count: await allPosts[i].countLikes() - await userPosts[i].countDislikes(),
-            tag: await userPosts[i].getTags()
-          }
-            console.log("USERTHOUGHTS" , userThoughts);
-            userThoughts.push(thought);
-        }
-        res.status(201).json(userThoughts)
-    } catch(err) {
-      console.log(err)
-    }
-})
 
 //get all posts made by a specific user
 router.get('/user/:userid', (req, res, next) => {
