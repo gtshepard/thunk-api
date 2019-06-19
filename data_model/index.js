@@ -1,6 +1,7 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
-const Database = new Sequelize('postgres://' + process.env.DATABASE_USER + ':' + process.env.DATABASE_PASS + '@localhost/' + process.env.DATABASE_NAME);
+/**const Database = new Sequelize('postgres://' + process.env.DATABASE_USER + ':' + process.env.DATABASE_PASS + '@localhost/' + process.env.DATABASE_NAME);**/
+const Database = new Sequelize(process.env.DATABASE_URL);
 const UserModel = require('./UserModel.js');
 const PostModel = require('./PostModel.js');
 const CommentModel = require('./CommentModel.js');
