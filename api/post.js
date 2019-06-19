@@ -15,7 +15,7 @@ router.get('/thought', async (req, res, next) => {
     const allPosts = await Post.findAll({order: [
       ['createdAt', 'DESC']
     ]})
-    console.log("POST DATE", allPosts[0].createdAt)
+
     for (let i = 0; i < allPosts.length; i++) {
 
       const allLikes = {
@@ -28,20 +28,48 @@ router.get('/thought', async (req, res, next) => {
         postLikes.push(allLikes);
     }
 
-    console.log("ARRRY:" , postLikes);
-    const sortedPosts = postLikes.sort((a, b) => {return a.count - b.count})
-    res.status(201).json(sortedPosts);
+    //console.log("ARRRY:" , postLikes);
+    //const sortedPosts = postLikes.sort((a, b) => {return a.count - b.count})
+    res.status(201).json(postLikes);
   } catch (err){
       console.log(err);
   }
 });
 
+//get all thoughts made by a specific user
+router.get('/thoughts/user/:userid', async (req, res, next) => {
+    let userThoughts = []
+    try {
+
+      const userPosts = await Post.findAll({
+            where:{
+              userId:[req.params.id]
+            }
+          //  order:[['createdAt', 'DESC']]
+        })
+
+        for(let i = 0; i < userPosts.length; i++) {
+
+          const thought = {
+            post: userPosts[i],
+            comment: await Comment.findAll({where:{postId:[userPosts[i].id]}}),
+            count: await allPosts[i].countLikes() - await userPosts[i].countDislikes(),
+            tag: await userPosts[i].getTags()
+          }
+            console.log("USERTHOUGHTS" , userThoughts);
+            userThoughts.push(thought);
+        }
+        res.status(201).json(userThoughts)
+    } catch(err) {
+      console.log(err)
+    }
+})
+
 
 //get all posts made by a specific user
-router.get('/user/:id', (req, res, next) => {
+router.get('/user/:userid', (req, res, next) => {
     Post.findAll({where:{userId:[req.params.id]}}).then((posts) => res.status(201).json(posts));
 });
-
 
 //get feed for a user (posts with in the location radius of the user)
 router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
