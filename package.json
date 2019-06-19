@@ -4,9 +4,8 @@
   "description": "rest interface for college listing api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set SECRET=hdhhjdkfgfjshdfjgfdkahahdfadafssfv && nodemon app.js"
-
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "heroku-postbuild": "npm install --production"
   },
   "repository": {
     "type": "git",
