@@ -2,7 +2,7 @@
 
 #### USAGE
 
-- The REST Interface's availible endpoints are listed below in conjucntion with HTTP method needed to make a request to each endpoint
+- The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
 
 ##### Auth
 
@@ -12,12 +12,21 @@
 ###### logout (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
 
+##### Thoughts 
+
+###### get all thoughts (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
+###### get all thoughts for a specific user (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
+###### get all posts within x miles of the users location (where x is the distance radius) (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/thought/user/:userid/:radius/:lat/:lng```
+
 ##### User
 
 ###### get all users (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/```
 ###### get user by id (GET)
-- ``` https://thunk-api-19.herokuapp.com/ap1/v1/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 ###### create a user (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user```
 ###### update a user (PUT)
@@ -46,7 +55,7 @@
 ###### user likes a post (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/likes/post/:postid/user/:userid```
 ###### user dislikes a post (POST)
-- ``` https://thunk-api-19.herokuapp.com/dislikes/post/:postid/user/:userid```
+- ``` https://thunk-api-19.herokuapp.com/api/dislikes/post/:postid/user/:userid```
 ###### update post by id (PUT)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/:postid```
 ###### delete post by id (DELETE)
@@ -87,14 +96,161 @@
 ###### get trending tags (GET)
 ###### get number of occurences of a specific tag (GET)
 
-##### Examples
-
 ###### for POST requests creating a thought
 
-``` {
+``` 
+{
       "text": "i've thunk, and heres my thought. i love this app"
       "lattitude": "40.748778" ,
       longitude: "-73.985643",
       report: "1"
-} ```
+} 
+```
 
+##### Example Responses
+
+- all ```/thought``` endpoints return an array of thoughts. format of a thought is as follows 
+``` json 
+      {
+             "user": {},
+             "post":{},
+             "comment":[],
+             "count": 0,
+             "tag":[]
+      }
+```
+- the post field is a post object
+- the commment array is an array of comment obejects.
+- the tag array is an array of tag objects 
+
+
+###### get all thoughts within x miles of the users location (where x is the distance radius) in order of most recent (GET)
+- ```axios.get(`https://thunk-api-19.herokuapp.com/api/v1/thought/user/1/23/40.730876/-73.992002`)```
+
+```json 
+[
+    {
+        "user": {
+            "id": 3,
+            "google_id": "CCC",
+            "distance_radius": 3,
+            "createdAt": "2019-06-19T21:50:48.003Z",
+            "updatedAt": "2019-06-19T21:50:48.003Z"
+        },
+        "post": {
+            "id": 6,
+            "text": "were hot dogs named after dogs, or were dogs named after hot dogs",
+            "lattitude": 40.729753,
+            "longitude": -73.99378,
+            "report": "1",
+            "createdAt": "2019-06-19T21:50:48.055Z",
+            "updatedAt": "2019-06-19T21:50:48.055Z",
+            "userId": 3
+        },
+        "comment": [],
+        "vote": 0,
+        "tag": []
+    },
+    {
+        "user": {
+            "id": 2,
+            "google_id": "BBB",
+            "distance_radius": 1,
+            "createdAt": "2019-06-19T21:50:47.997Z",
+            "updatedAt": "2019-06-19T21:50:47.997Z"
+        },
+        "post": {
+            "id": 5,
+            "text": "to think is to know, to know is to think",
+            "lattitude": 40.730876,
+            "longitude": -73.992002,
+            "report": "1",
+            "createdAt": "2019-06-19T21:50:48.050Z",
+            "updatedAt": "2019-06-19T21:50:48.050Z",
+            "userId": 2
+        },
+        "comment": [],
+        "vote": 0,
+        "tag": []
+    },
+    {
+        "user": {
+            "id": 2,
+            "google_id": "BBB",
+            "distance_radius": 1,
+            "createdAt": "2019-06-19T21:50:47.997Z",
+            "updatedAt": "2019-06-19T21:50:47.997Z"
+        },
+        "post": {
+            "id": 4,
+            "text": "why is the sky blue?",
+            "lattitude": 40.730876,
+            "longitude": -73.992002,
+            "report": "1",
+            "createdAt": "2019-06-19T21:50:48.044Z",
+            "updatedAt": "2019-06-19T21:50:48.044Z",
+            "userId": 2
+        },
+        "comment": [
+            {
+                "id": 3,
+                "text": "YASSSSSSSSS",
+                "report": 10,
+                "markOwner": false,
+                "createdAt": "2019-06-19T21:50:48.088Z",
+                "updatedAt": "2019-06-19T21:50:48.088Z",
+                "postId": 4,
+                "userId": 1
+            }
+        ],
+        "vote": 0,
+        "tag": []
+    },
+    {
+        "user": {
+            "id": 2,
+            "google_id": "BBB",
+            "distance_radius": 1,
+            "createdAt": "2019-06-19T21:50:47.997Z",
+            "updatedAt": "2019-06-19T21:50:47.997Z"
+        },
+        "post": {
+            "id": 3,
+            "text": "my first time in new york wasssup?",
+            "lattitude": 40.730876,
+            "longitude": -73.992002,
+            "report": "1",
+            "createdAt": "2019-06-19T21:50:48.038Z",
+            "updatedAt": "2019-06-19T21:50:48.038Z",
+            "userId": 2
+        },
+        "comment": [
+            {
+                "id": 4,
+                "text": "get it",
+                "report": 10,
+                "markOwner": false,
+                "createdAt": "2019-06-19T21:50:48.094Z",
+                "updatedAt": "2019-06-19T21:50:48.094Z",
+                "postId": 3,
+                "userId": 2
+            }
+        ],
+        "vote": 0,
+        "tag": [
+            {
+                "id": 6,
+                "tag": "myfirsttime",
+                "createdAt": "2019-06-19T21:50:48.205Z",
+                "updatedAt": "2019-06-19T21:50:48.205Z",
+                "post_tags": {
+                    "createdAt": "2019-06-19T21:50:48.214Z",
+                    "updatedAt": "2019-06-19T21:50:48.214Z",
+                    "tagId": 6,
+                    "postId": 3
+                }
+            }
+        ]
+    }
+]
+```
