@@ -20,6 +20,10 @@
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
 ###### get all posts within x miles of the users location (where x is the distance radius) (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought/user/:userid/:radius/:lat/:lng```
+###### get all time best thoughts (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/thought/best ```
+###### get all time worst thoughts (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/thought/worst ```
 
 ##### User
 
