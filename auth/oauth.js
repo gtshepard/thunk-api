@@ -22,7 +22,7 @@ router.delete('/logout', (req, res, next) => {
 const googleCredentials = {
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/api/v1/auth/google/callback'
+  callbackURL: 'https://thunk-api-19.herokuapp.com/api/v1/auth/google'
 }
 
 const verificationCallback = async (token, refreshToken, profile,  done) => {
