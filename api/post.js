@@ -37,9 +37,6 @@ router.get('/likes/post/:id', (req, res, next) => {
   })
 })
 
-
-
-
 //get number of dislikes for a post
 router.get('/dislikes/post/:id', (req, res, next) => {
   Post.findByPk(req.params.id).then((post) => {
@@ -113,4 +110,11 @@ router.delete('/:id', (req, res, next) => {
     }).then((post) => res.status(201).json(post));
 });
 
+//TODO: report update
+//TODO: user account creation
+//authenctication on each endpoint
+//TODO: tredning tags  ()
+//TODO: post by tag (thought format)
+//TODO: best and worst in thought
+//TODO: take in an array of tags
 module.exports = router;

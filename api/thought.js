@@ -3,7 +3,8 @@ const {User, Post, Comment, Tag} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
 //get all thoughts
 router.get('/', async (req, res, next) => {
-  let postLikes = [];
+
+  let allThoughts = [];
   try {
     const allPosts = await Post.findAll({order: [
       ['createdAt', 'DESC']
@@ -11,20 +12,16 @@ router.get('/', async (req, res, next) => {
 
     for (let i = 0; i < allPosts.length; i++) {
 
-      const allLikes = {
+      const thought = {
+        user: await User.findByPk(allPosts[i].userId),
         post: allPosts[i],
         comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
         count: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
         tag: await allPosts[i].getTags()
       }
-        //console.log("COMMENT:", allLikes.comment)
-        //console.log("DATE:" , allLikes.post.createdAt)
-        postLikes.push(allLikes);
+        allThoughts.push(thought);
     }
-
-    //console.log("ARRRY:" , postLikes);
-    //const sortedPosts = postLikes.sort((a, b) => {return a.count - b.count})
-    res.status(201).json(postLikes);
+      res.status(201).json(allThoughts);
   } catch (err){
       console.log(err);
   }
@@ -45,12 +42,12 @@ router.get('/user/:userid', async (req, res, next) => {
         for(let i = 0; i < userPosts.length; i++) {
 
           const thought = {
+            user: await User.findByPk(userPosts[i].userId),
             post: userPosts[i],
             comment: await Comment.findAll({where:{postId:[userPosts[i].id]}}),
             count: await userPosts[i].countLikes() - await userPosts[i].countDislikes(),
             tag: await userPosts[i].getTags()
           }
-            console.log("USERTHOUGHTS" , userThoughts);
             userThoughts.push(thought);
         }
         res.status(201).json(userThoughts)
@@ -79,12 +76,12 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
 
         for(let i = 0; i < postsInUserLocation.length; i++) {
           const thought = {
+            user: await User.findByPk(postsInUserLocation[i].userId),
             post: postsInUserLocation[i],
             comment: await Comment.findAll({where:{postId:[postsInUserLocation[i].id]}}),
             count: await postsInUserLocation[i].countLikes() - await postsInUserLocation[i].countDislikes(),
             tag: await postsInUserLocation[i].getTags()
           }
-          console.log("USERTHOUGHTS" , thoughtsInUserLocation);
           thoughtsInUserLocation.push(thought);
         }
         res.status(201).json(thoughtsInUserLocation)
