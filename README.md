@@ -12,6 +12,9 @@
 ###### logout (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
 
+##### Thoughts 
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
+
 ##### User
 
 ###### get all users (GET)
