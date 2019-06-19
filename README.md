@@ -96,8 +96,6 @@
 ###### get trending tags (GET)
 ###### get number of occurences of a specific tag (GET)
 
-##### Examples
-
 ###### for POST requests creating a thought
 
 ``` 
@@ -109,3 +107,121 @@
 } 
 ```
 
+##### Example Responses
+
+- all ```/thought``` endpoints return an array of thoughts. format of a thought is as follows 
+``` json 
+      {
+             "post":{},
+             "comment":[],
+             "count": 0,
+             "tag":[]
+      }
+```
+- the post field is a post object
+- the commment array is an array of comment obejects.
+- the tag array is an array of tag objects 
+
+
+###### get all thoughts within x miles of the users location (where x is the distance radius) in order of most recent (GET)
+- ```axios.get(`https://thunk-api-19.herokuapp.com/api/v1/thought/user/1/23/40.730876/-73.992002`)```
+
+```json 
+[
+    {
+        "post": {
+            "id": 6,
+            "text": "were hot dogs named after dogs, or were dogs named after hot dogs",
+            "lattitude": 40.729753,
+            "longitude": -73.99378,
+            "report": "1",
+            "createdAt": "2019-06-19T20:07:12.183Z",
+            "updatedAt": "2019-06-19T20:07:12.183Z",
+            "userId": 3
+        },
+        "comment": [],
+        "count": 0,
+        "tag": []
+    },
+    {
+        "post": {
+            "id": 5,
+            "text": "to think is to know, to know is to think",
+            "lattitude": 40.730876,
+            "longitude": -73.992002,
+            "report": "1",
+            "createdAt": "2019-06-19T20:07:12.176Z",
+            "updatedAt": "2019-06-19T20:07:12.176Z",
+            "userId": 2
+        },
+        "comment": [],
+        "count": 0,
+        "tag": []
+    },
+    {
+        "post": {
+            "id": 4,
+            "text": "why is the sky blue?",
+            "lattitude": 40.730876,
+            "longitude": -73.992002,
+            "report": "1",
+            "createdAt": "2019-06-19T20:07:12.169Z",
+            "updatedAt": "2019-06-19T20:07:12.169Z",
+            "userId": 2
+        },
+        "comment": [
+            {
+                "id": 3,
+                "text": "YASSSSSSSSS",
+                "report": 10,
+                "markOwner": false,
+                "createdAt": "2019-06-19T20:07:12.220Z",
+                "updatedAt": "2019-06-19T20:07:12.220Z",
+                "postId": 4,
+                "userId": 1
+            }
+        ],
+        "count": 0,
+        "tag": []
+    },
+    {
+        "post": {
+            "id": 3,
+            "text": "my first time in new york wasssup?",
+            "lattitude": 40.730876,
+            "longitude": -73.992002,
+            "report": "1",
+            "createdAt": "2019-06-19T20:07:12.163Z",
+            "updatedAt": "2019-06-19T20:07:12.163Z",
+            "userId": 2
+        },
+        "comment": [
+            {
+                "id": 4,
+                "text": "get it",
+                "report": 10,
+                "markOwner": false,
+                "createdAt": "2019-06-19T20:07:12.228Z",
+                "updatedAt": "2019-06-19T20:07:12.228Z",
+                "postId": 3,
+                "userId": 2
+            }
+        ],
+        "count": 0,
+        "tag": [
+            {
+                "id": 6,
+                "tag": "myfirsttime",
+                "createdAt": "2019-06-19T20:07:12.366Z",
+                "updatedAt": "2019-06-19T20:07:12.366Z",
+                "post_tags": {
+                    "createdAt": "2019-06-19T20:07:12.378Z",
+                    "updatedAt": "2019-06-19T20:07:12.378Z",
+                    "tagId": 6,
+                    "postId": 3
+                }
+            }
+        ]
+    }
+]
+```
