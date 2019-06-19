@@ -70,19 +70,16 @@ router.get('/worst', async (req, res, next) => {
     res.status(201).json(sortedPosts);
 })
 
-//user likes a post
+//user likes a post TODO: make it so user can only lke post once
 router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
   Post.findByPk(req.params.postid).then((post) => {
-    console.log("POST" , post.id);
-    //console.log(post);
-    // post.addLike([post]).then((post) => res.json(post))
     User.findByPk(req.params.userid).then(user => {
       post.addLike(user).then(like => res.json(like))
     })
   })
 })
 
-//user Dislikes a post
+//user Dislikes a post TODO: make it so user can only dislike post once
 router.post('/dislikes/post/:postid/user/:userid', (req, res, next) => {
   Post.findByPk(req.params.postid).then((post) => {
     User.findByPk(req.params.userid).then(user => {
@@ -91,7 +88,7 @@ router.post('/dislikes/post/:postid/user/:userid', (req, res, next) => {
   })
 })
 
-// TODO: get posts by hashtag, also count the posts.
+//creates a post
 router.post('/', (req, res, next) => {
     Post.create(req.body).then((post) => res.status(201).json(post));
 });
