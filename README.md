@@ -77,25 +77,6 @@
 ###### get trending tags (GET)
 ###### get number of occurences of a specific tag (GET)
 
-an example call on when the server is running on the local machine.
-- http://localhost:3000/api/v1/users
-
-(NOTE will need to specify)
-the HTTP method associated with the request with your code, for example if you are using  )
-- axios.get('http://localhost:3000/api/v1/users')
+##### Examples
 
 
-### Tech Stack
-  - Node.js + Express + Sequelize + PostgreSQL
-
-### How To Run This Program
-  - verify Node is installed ``` npm -v ```
-  - if not ```sudo apt install nodejs```
-  - go to project dir
-  - ```npm init ```
-  - then run ```npm install``` to install the latest dependencies.
-  - then run ```nodemon app.js``` to start the server.  
-  - make sure you have a relational database of your choice configured to run.
-
-- the api has the following endpoints (were the colon (:) denotes a parameter)
-end points are grouped by the HTTP methods that can call them.
