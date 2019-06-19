@@ -2,6 +2,12 @@ const router = require('express').Router();
 const {User, Post, Comment} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
 
+
+//get all posts
+router.get('/', (req, res, next) => {
+    Post.findAll().then((posts) => res.status(201).json(posts));
+});
+
 //get all posts made by a specific user
 router.get('/user/:id', (req, res, next) => {
     Post.findAll({where:{userId:[req.params.id]}}).then((posts) => res.status(201).json(posts));
