@@ -26,7 +26,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/v1", apiRouter);
-
+app.get('google2f484170efc3e9f0.html', (req, res, next) => {
+    res.send('google2f484170efc3e9f0.html')
+})
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).send(err.message
