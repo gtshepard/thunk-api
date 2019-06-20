@@ -28,6 +28,26 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+
+router.get('/:thoughtid', async (req, res, next) => {
+  try {
+      const post = await Post.findByPk(req.params.thoughtid)
+      let comments = await Comment.findAll({where:{postId:[post.id]}})
+      const thought = {
+          user: await User.findByPk(post.userId),
+          post: post,
+          comment: await Comment.findAll({where:{postId:[post.id]}}),
+          vote: await post.countLikes() - await post.countDislikes(),
+          tag: await post.getTags(),
+          postReports: await post.countUserReportPost()
+      }
+      res.status(201).json(thought);
+   } catch (err){
+      console.log(err);
+   }
+});
+
+
 //map each item from comment -> {comment, report}
 
 //get all thoughts made by a specific user
