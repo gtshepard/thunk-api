@@ -17,7 +17,8 @@ router.get('/', async (req, res, next) => {
         post: allPosts[i],
         comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
         vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
-        tag: await allPosts[i].getTags()
+        tag: await allPosts[i].getTags(),
+        postReports: await allPosts[i].countUserReportPost()
       }
         allThoughts.push(thought);
     }
@@ -45,7 +46,8 @@ router.get('/user/:userid', async (req, res, next) => {
             post: userPosts[i],
             comment: await Comment.findAll({where:{postId:[userPosts[i].id]}}),
             vote: await userPosts[i].countLikes() - await userPosts[i].countDislikes(),
-            tag: await userPosts[i].getTags()
+            tag: await userPosts[i].getTags(),
+            postReports: await userPosts[i].countUserReportPost()
           }
             userThoughts.push(thought);
         }
@@ -77,7 +79,8 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
             post: postsInUserLocation[i],
             comment: await Comment.findAll({where:{postId:[postsInUserLocation[i].id]}}),
             vote: await postsInUserLocation[i].countLikes() - await postsInUserLocation[i].countDislikes(),
-            tag: await postsInUserLocation[i].getTags()
+            tag: await postsInUserLocation[i].getTags(),
+            postReports: await postsInUserLocation[i].countUserReportPost()
           }
           thoughtsInUserLocation.push(thought);
         }
@@ -103,7 +106,8 @@ router.get('/best', async (req, res, next) => {
           post: allPosts[i],
           comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
           vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
-          tag: await allPosts[i].getTags()
+          tag: await allPosts[i].getTags(),
+          postReports: await allPosts[i].countUserReportPost()
         }
         allThoughts.push(thought);
       }
@@ -129,7 +133,8 @@ router.get('/worst', async (req, res, next) => {
         post: allPosts[i],
         comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
         vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
-        tag: await allPosts[i].getTags()
+        tag: await allPosts[i].getTags(),
+        postReports: await allPosts[i].countUserReportPost()
       }
       allThoughts.push(thought);
     }
@@ -139,5 +144,6 @@ router.get('/worst', async (req, res, next) => {
     const sortedPosts = allThoughts.sort((a, b) => {return a.vote - b.vote})
     res.status(201).json(sortedPosts);
 })
+
 
 module.exports = router
