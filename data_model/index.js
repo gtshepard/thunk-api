@@ -183,6 +183,7 @@ const seed = async () => {
     await postToTag2.createTag({
         tag: 'lunch'
     })
+
     const postToTag3 = await Post.findByPk(1)
     await postToTag3.createTag({
         tag: 'cheatday'
@@ -201,6 +202,11 @@ const seed = async () => {
     const postToTag6 = await Post.findByPk(3)
     await postToTag6.createTag({
         tag: 'myfirsttime'
+    })
+
+    const postToTag7 = await Post.findByPk(2)
+    await postToTag7.createTag({
+        tag: 'pizza'
     })
 
     //users liking posts
