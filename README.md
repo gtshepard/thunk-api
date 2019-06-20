@@ -14,12 +14,12 @@
 
 
 
-### Usage
+## Usage
 
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
 
-### Endpoints
-#### Auth
+## Endpoints
+### Auth
 
 ###### sign in with google (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google ```
@@ -27,7 +27,7 @@
 ###### logout (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
 
-##### Thought 
+### Thought 
 
 ###### get all thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
@@ -40,7 +40,7 @@
 ###### get all time worst thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought/worst ```
 
-#### User
+### User
 
 ###### get all users (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/```
@@ -53,7 +53,7 @@
 ###### delete a user (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 
-#### Post
+### Post
 
 ###### get all posts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post```
@@ -80,7 +80,7 @@
 ###### delete post by id (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/:postid```
 
-#### Comment
+### Comment
 
 ###### get all comments (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/```
@@ -95,7 +95,7 @@
 ###### delete a comment by id (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/:commentid```
 
-#### Tag
+### Tag
 
 ###### get all tags (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/ ``` 
@@ -113,7 +113,7 @@
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 
 
-#### Report
+### Report
 
 
 ### Response and Request Format
