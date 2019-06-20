@@ -22,6 +22,10 @@ verify().catch(console.error);
 **/
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
+router.get('/me', (req, res, next) => {
+  res.json(req.user || {})
+})
+
 router.get('/callback', passport.authenticate('google', {
     successRedirect: 'https://thunk-api-19.herokuapp.com/api/v1/thought',
     failureRedirect: 'https://github.com'
