@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User} = require('../data_model/index');
+const {User, Post, Comment, Tag} = require('../data_model/index');
 const passport = require('passport');
 
 passport.serializeUser((user, done) => {
@@ -29,6 +29,30 @@ router.get('/:userid', (req, res, next) => {
 router.post('/', (req, res, next) => {
     User.create(req.body).then((user) => res.status(201).json(user));
 });
+
+//user reports a post
+router.post('/report/post/:postid/user/:userid', async (req, res, next) => {
+  try {
+    const postToReport = await Post.findByPk(req.params.postid)
+    const userToReportPost = await User.findByPk(req.params.userid)
+    const report = await postToReport.addUserReportPost(userToReportPost)
+    res.status(201).json(report)
+  } catch(err){
+    console.log(err)
+  }
+})
+
+//user reports a comment
+router.post('/report/comment/:commentid/user/:userid', async (req, res, next) => {
+  try {
+    const commentToReport = await Comment.findByPk(req.params.commentid)
+    const userToReportComment = await User.findByPk(req.params.userid)
+    const report = await commentToReport.addUserReportComment(userToReportComment)
+    res.status(201).json(report)
+  } catch(err){
+    console.log(err)
+  }
+})
 
 //update a user
 router.put('/:id', (req, res, next) => {
