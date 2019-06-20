@@ -41,7 +41,7 @@ router.get('/post/:id', (req, res, next) => {
   })
 })
 
-//get all posts that contain a specific hastag
+//get all thoughts that contain a specific tag
 router.get('/thought/:tag', async (req, res, next) => {
   let postsWithThisTag = []
   try {
