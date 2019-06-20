@@ -1,18 +1,42 @@
 ## RESTful API for Thunk (social media app - anonymous thought sharing)
 
-#### USAGE
+### Table of Contents
+1. [Usage](#usage)
+2. [Endpoints](#endpoints)
+    1.  [Auth](#auth)
+    2.  [Thought](#thought)
+    3.  [User](#user)
+    4.  [Post](#post)
+    5.  [Comment](#comment)
+    6.  [Tag](#tag)
+    7.  [Report](#report)
+3. [Response and Request Format](#response-and-request-format)
 
+
+
+## Usage
+* * *
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
+* * *
 
-##### Auth
+## Endpoints
 
+* * *
+
+### Auth
+
+* * *
 ###### sign in with google (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google ```
 
 ###### logout (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
 
-##### Thoughts 
+* * *
+
+### Thought 
+
+* * *
 
 ###### get all thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
@@ -25,7 +49,11 @@
 ###### get all time worst thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought/worst ```
 
-##### User
+* * *
+
+### User
+
+* * *
 
 ###### get all users (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/```
@@ -38,7 +66,11 @@
 ###### delete a user (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 
-##### Posts
+* * *
+
+### Post
+
+* * *
 
 ###### get all posts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post```
@@ -65,7 +97,11 @@
 ###### delete post by id (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/:postid```
 
-##### Comment
+* * *
+
+### Comment
+
+* * *
 
 ###### get all comments (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/```
@@ -80,38 +116,43 @@
 ###### delete a comment by id (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/:commentid```
 
-##### Tag
+* * *
+
+### Tag
+
+* * *
+
+###### get all tags (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/ ``` 
+
+###### get trending tags (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/ ``` 
 
 ###### get all tags for a post
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
-###### get all identical tags
-- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/:tag```
+
+###### get all thoughts that contain a specific tag
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
+
 ###### create a tag for a post (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 
-#### Coming soon
+* * *
 
-##### Post
-###### get all posts with specific tag (GET)
-###### get vote count for post
 
-##### Tag
-###### delete a tag (DELETE)
-###### get trending tags (GET)
-###### get number of occurences of a specific tag (GET)
+### Report
 
-###### for POST requests creating a thought
+* * *
 
-``` 
-{
-      "text": "i've thunk, and heres my thought. i love this app"
-      "lattitude": "40.748778" ,
-      longitude: "-73.985643",
-      report: "1"
-} 
-```
+
+### Response and Request Format
+
+
+* * *
 
 ##### Example Responses
+
+* * *
 
 - all ```/thought``` endpoints return an array of thoughts. format of a thought is as follows 
 ``` json 
@@ -127,6 +168,7 @@
 - the commment array is an array of comment obejects.
 - the tag array is an array of tag objects 
 
+* * *
 
 ###### get all thoughts within x miles of the users location (where x is the distance radius) in order of most recent (GET)
 - ```axios.get(`https://thunk-api-19.herokuapp.com/api/v1/thought/user/1/23/40.730876/-73.992002`)```
@@ -258,3 +300,4 @@
     }
 ]
 ```
+* * *
