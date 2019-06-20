@@ -140,5 +140,4 @@ router.get('/worst', async (req, res, next) => {
     res.status(201).json(sortedPosts);
 })
 
-
 module.exports = router
