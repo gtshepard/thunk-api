@@ -14,7 +14,7 @@
 
 
 
-### USAGE
+### Usage
 
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
 
