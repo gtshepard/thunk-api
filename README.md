@@ -15,19 +15,28 @@
 
 
 ## Usage
-
+* * *
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
+* * *
 
 ## Endpoints
+
+* * *
+
 ### Auth
 
+* * *
 ###### sign in with google (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google ```
 
 ###### logout (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
 
+* * *
+
 ### Thought 
+
+* * *
 
 ###### get all thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
@@ -40,7 +49,11 @@
 ###### get all time worst thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought/worst ```
 
+* * *
+
 ### User
+
+* * *
 
 ###### get all users (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/```
@@ -53,7 +66,11 @@
 ###### delete a user (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 
+* * *
+
 ### Post
+
+* * *
 
 ###### get all posts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post```
@@ -80,7 +97,11 @@
 ###### delete post by id (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/:postid```
 
+* * *
+
 ### Comment
+
+* * *
 
 ###### get all comments (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/```
@@ -95,7 +116,11 @@
 ###### delete a comment by id (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/:commentid```
 
+* * *
+
 ### Tag
+
+* * *
 
 ###### get all tags (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/ ``` 
@@ -112,24 +137,22 @@
 ###### create a tag for a post (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 
+* * *
+
 
 ### Report
+
+* * *
 
 
 ### Response and Request Format
 
-###### for POST requests creating a thought
 
-``` 
-{
-      "text": "i've thunk, and heres my thought. i love this app"
-      "lattitude": "40.748778" ,
-      longitude: "-73.985643",
-      report: "1"
-} 
-```
+* * *
 
 ##### Example Responses
+
+* * *
 
 - all ```/thought``` endpoints return an array of thoughts. format of a thought is as follows 
 ``` json 
@@ -145,6 +168,7 @@
 - the commment array is an array of comment obejects.
 - the tag array is an array of tag objects 
 
+* * *
 
 ###### get all thoughts within x miles of the users location (where x is the distance radius) in order of most recent (GET)
 - ```axios.get(`https://thunk-api-19.herokuapp.com/api/v1/thought/user/1/23/40.730876/-73.992002`)```
@@ -276,3 +300,4 @@
     }
 ]
 ```
+* * *
