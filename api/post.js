@@ -94,7 +94,7 @@ router.post('/dislikes/post/:postid/user/:userid', (req, res, next) => {
 })
 
 //creates a post
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
     Post.create(req.body).then((post) => res.status(201).json(post));
 });
 
