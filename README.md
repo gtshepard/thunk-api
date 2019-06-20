@@ -1,9 +1,23 @@
 ## RESTful API for Thunk (social media app - anonymous thought sharing)
 
-#### USAGE
+### Table of Contents
+1. [Usage](#usage)
+2. [Endpoints](#endpoints)
+    1.  [Auth](#auth)
+    2.  [User](#user)
+    3.  [Post](#post)
+    4.  [Comment](#comment)
+    5.  [Tag](#tag)
+    6.  [Report](#report)
+3. [Response and Request Format](#response-and-request-format)
+
+
+
+### USAGE
 
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
 
+### Endpoints
 ##### Auth
 
 ###### sign in with google (GET)
@@ -38,7 +52,7 @@
 ###### delete a user (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 
-##### Posts
+##### Post
 
 ###### get all posts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post```
@@ -82,23 +96,26 @@
 
 ##### Tag
 
+###### get all tags (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/ ``` 
+
+###### get trending tags (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/ ``` 
+
 ###### get all tags for a post
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
-###### get all identical tags
-- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/:tag```
+
+###### get all thoughts that contain a specific tag
+- ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
+
 ###### create a tag for a post (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 
-#### Coming soon
 
-##### Post
-###### get all posts with specific tag (GET)
-###### get vote count for post
+##### Report
 
-##### Tag
-###### delete a tag (DELETE)
-###### get trending tags (GET)
-###### get number of occurences of a specific tag (GET)
+
+### Response and Request Format
 
 ###### for POST requests creating a thought
 
