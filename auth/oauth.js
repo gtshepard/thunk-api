@@ -4,22 +4,7 @@ const {User} = require('../data_model/index');
 const passport = require('passport');
 require('dotenv').config();
 const {OAuth2Client} = require('google-auth-library');
-//const client = new OAuth2Client(CLIENT_ID);
-/**
-async function verify() {
-  const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
-      // Or, if multiple clients access the backend:
-      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-  });
-  const payload = ticket.getPayload();
-  const userid = payload['sub'];
-  // If request specified a G Suite domain:
-  //const domain = payload['hd'];
-}
-verify().catch(console.error);
-**/
+
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
 router.get('/me', (req, res, next) => {
@@ -53,7 +38,7 @@ const verificationCallback = async (token, refreshToken, profile,  done) => {
     }
   try {
     const [user] = await User.findOrCreate({
-      where: {google_id: profile.id, distance_radius: 25},
+      where: {google_id: profile.id},
       defaults: info
     })
      done(null, user);
