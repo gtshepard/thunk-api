@@ -4,11 +4,12 @@
 1. [Usage](#usage)
 2. [Endpoints](#endpoints)
     1.  [Auth](#auth)
-    2.  [User](#user)
-    3.  [Post](#post)
-    4.  [Comment](#comment)
-    5.  [Tag](#tag)
-    6.  [Report](#report)
+    2.  [Thought](#thought)
+    3.  [User](#user)
+    4.  [Post](#post)
+    5.  [Comment](#comment)
+    6.  [Tag](#tag)
+    7.  [Report](#report)
 3. [Response and Request Format](#response-and-request-format)
 
 
@@ -18,7 +19,7 @@
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
 
 ### Endpoints
-##### Auth
+#### Auth
 
 ###### sign in with google (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google ```
@@ -26,7 +27,7 @@
 ###### logout (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google/logout ```
 
-##### Thoughts 
+##### Thought 
 
 ###### get all thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
@@ -39,7 +40,7 @@
 ###### get all time worst thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought/worst ```
 
-##### User
+#### User
 
 ###### get all users (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/```
@@ -52,7 +53,7 @@
 ###### delete a user (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 
-##### Post
+#### Post
 
 ###### get all posts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post```
@@ -79,7 +80,7 @@
 ###### delete post by id (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/:postid```
 
-##### Comment
+#### Comment
 
 ###### get all comments (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/```
@@ -94,7 +95,7 @@
 ###### delete a comment by id (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/comment/:commentid```
 
-##### Tag
+#### Tag
 
 ###### get all tags (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/ ``` 
@@ -112,7 +113,7 @@
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 
 
-##### Report
+#### Report
 
 
 ### Response and Request Format
