@@ -34,6 +34,14 @@ Post.belongsToMany(User, {as: 'Likes', through: 'likes'});
 User.belongsToMany(Post, {as: 'Dislikes', through: 'dislikes'});
 // post are disliked by users  relationship many posts disliked  by users (N:M)
 Post.belongsToMany(User, {as: 'Dislikes', through: 'dislikes'});
+//User reports many Posts.(N:M)
+User.belongsToMany(Post, {as: 'UserReportPost', through: 'user_report_post'})
+//Posts can be report by many Users  (N:M)
+Post.belongsToMany(User, {as: 'UserReportPost', through: 'user_report_post'})
+//User reports many Comments.(N:M)
+User.belongsToMany(Comment, {as: 'UserReportComment', through: 'user_report_comment'})
+//Comments can be reported  many Users(N:M)
+Comment.belongsToMany(User, {as: 'UserReportComment', through: 'user_report_comment'})
 
 
 const seed = async () => {
@@ -237,6 +245,43 @@ const seed = async () => {
     const postToDislike3 = await Post.findByPk(2)
     const userToDislikePost3 = await User.findByPk(4)
     await postToDislike3.addDislike(userToDislikePost3)
+
+    //user reporting a post
+    const postToReport1 = await Post.findByPk(1)
+    const userToReportPost1 = await User.findByPk(1)
+    await postToReport1.addUserReportPost(userToReportPost1)
+
+    const postToReport2 = await Post.findByPk(1)
+    const userToReportPost2 = await User.findByPk(2)
+    await postToReport2.addUserReportPost(userToReportPost2)
+
+    const postToReport3 = await Post.findByPk(1)
+    const userToReportPost3 = await User.findByPk(3)
+    await postToReport3.addUserReportPost(userToReportPost3)
+
+    const postToReport4 = await Post.findByPk(5)
+    const userToReportPost4 = await User.findByPk(1)
+    await postToReport4.addUserReportPost(userToReportPost4)
+
+    const postToReport5 = await Post.findByPk(5)
+    const userToReportPost5 = await User.findByPk(2)
+    await postToReport5.addUserReportPost(userToReportPost5)
+
+    const commentToReport1 = await Comment.findByPk(4)
+    const userToReportComment1 = await User.findByPk(2)
+    await commentToReport1.addUserReportComment(userToReportComment1)
+
+    const commentToReport2 = await Comment.findByPk(4)
+    const userToReportComment2 = await User.findByPk(1)
+    await commentToReport2.addUserReportComment(userToReportComment2)
+
+    const commentToReport3 = await Comment.findByPk(4)
+    const userToReportComment3 = await User.findByPk(3)
+    await commentToReport3.addUserReportComment(userToReportComment3)
+
+    const commentToReport4 = await Comment.findByPk(4)
+    const userToReportComment4 = await User.findByPk(4)
+    await commentToReport4.addUserReportComment(userToReportComment4)
 
     console.log(`
       Seed success!
