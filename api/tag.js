@@ -1,51 +1,74 @@
 const router = require('express').Router();
 const {User, Post, Comment, Tag} = require('../data_model/index');
+let _ = require('lodash');
+
+//get all tags
+router.get('/', async (req, res, next) => {
+    try {
+      const tagsInOrderByName = await Tag.findAll({order: [['tag']]})
+      res.status(201).json(tagsInOrderByName)
+    } catch(err) {
+      console.log(err)
+    }
+})
+//get most used tags in order of frequen
+router.get('/trending', async (req, res, next) => {
+
+  try{
+      const allTags = await Tag.findAll()
+      let trendingTags = [];
+      let allTagValues = allTags.map((e) => e.tag)
+      let uniqueTagValues = _.uniq(allTagValues)
+      uniqueTagValues.forEach(e => console.log(e))
+
+      for (let i = 0; i <uniqueTagValues.length; i++){
+        trendingTags.push(await Tag.findAndCountAll({where:{tag: uniqueTagValues[i]}}))
+      }
+
+      const sortedbyTrending = trendingTags.sort((a, b) => {return b.count - a.count})
+      res.status(201).json(sortedbyTrending)
+
+  } catch(err){
+    console.log(err)
+  }
+})
 
 //get all hashtags for a post
 router.get('/post/:id', (req, res, next) => {
+  console.log("GET POSTS BY TAG VALUE")
   Post.findByPk(req.params.id).then((post) => {
     post.getTags().then((post) => res.json(post))
   })
 })
 
-//get all tags with the same value
-router.get('/:tag', (req, res, next) => {
-  //.findAll({where:{tag:[req.params.tag]})
-  Tag.findAll({where:{tag:[req.params.tag]}}).then((tags) => res.status(201).json(tags));
-});
-
-//get all hashtags for a user
-//users shoudl not have to do cors plugin
-//get most popluar tags
-
-
-router.get('/trending', async (req, res, next) => {
-    const allTags = Tag.findAll()
-    let trendingTags = [];
+//get all posts that contain a specific hastag
+router.get('/thought/:tag', async (req, res, next) => {
+  let postsWithThisTag = []
+  try {
+    const allTags = await Tag.findAll()
 
     for (let i = 0; i < allTags.length; i++){
-      trendingTags.push({
-        tag: allTags[i],
-        count: await Tag.findAndCountAll({
-          where:{
-            tag: allTags[i].tag
-          }
-        })
-      }})
+      if ((await allTags[i].tag) === req.params.tag){
+        postsWithThisTag.push(await allTags[i].getPosts())
+      }
     }
-    res.status(201).json(trendingTags)
-}
 
-/**
-    for (let i = 0; i < allTags.length; i++) {
-        let frequency = 0;
-        for(let j = 0; j < allTags.length; i++){
-            if (allTags[i] === allTags[j]){
-                frequency = frequency + 1;
-                {tag: allTags[i].tag, count: frequency}
-            }
-        }
-    }**/
+  let thoughtsWithThisTag = []
+  for (let i = 0; i < postsWithThisTag.length; i++) {
+     let aPost = await Post.findByPk(postsWithThisTag[i][0].id)
+     const thought = {
+       user: await User.findByPk(aPost.userId),
+       post: aPost,
+       comment: await Comment.findAll({where:{postId:[aPost.id]}}),
+       tag: await aPost.getTags(),
+       vote: await aPost.countLikes() - await aPost.countDislikes()
+    }
+     thoughtsWithThisTag.push(thought)
+  }
+    res.status(201).json(thoughtsWithThisTag)
+  } catch(err){
+      console.log(err)
+  }
 })
 
 //create a tag for a post
@@ -54,66 +77,5 @@ router.post('/post/:id', (req, res, next) => {
     post.createTag(req.body).then((post) => res.json(post))
   })
 });
-
-
-
-
-// res.json(post)
-  // Tag.create(req.body).then((tag) => res.status(201).json(tag));
-
-//   Tag.create(req.body).then((tag) => {
-//   console.log(Object.keys(Object.getPrototypeOf(tag)))
-//   console.log(Object.keys(Object.getPrototypeOf(post)))
-//   res.json(tag)
-// })
-
-/**router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
-    console.log(Object.keys(Object.getPrototypeOf(post)))
-    res.send('Sucess')
-
-})**/
-/**
-router.post('/likes/post/:postId/user/:userId', (req,res,next) => {
-  Post.findByPk(1).then(post => console.log(Object.keys(Object.getPrototypeOf(post))))
-
-  res.send(`Hello foo ${req.params.postId}. How is the bar? ${req.params.userId}`)
-
-
-})
-**/
-
-
-
-
-
-//Tag.create(req.body).then((tag) => res.status(201).json(tag));
-
-//Post.findByPk(req.params.id).then((post) => .then((post, tag) => post.addTags([tag])).then((tag) => res.status(201).json(tag));
-//Post.findByPk(req.params.id).then(() => addTag({tag})).then((tag) => post.addTags(tag)).then((tag) => res.status(201).json(tag))
-//const post = Post.findByPk(req.params.id);
-//Tag.create({tag:req.body}).then(function(tag) {post.addTags([tag])});
-//post.addTags([tag])
-//  const t = Tag.create({tag: req.body});
-//Post.findByPk(req.params.id).then((post) => {
-//}).then((post) => res.status.json(post));
-
-//Well, I solved the problem with setCoins, above. Apparently it takes id numbers and not objects, so this works:
-/*Ledger.findById(22).then(ledger=>{
-    ledger.setCoins([1,2]).then(sc=>{
-        console.log(sc);
-    });
-});
-*/
-
-
-//Project.create({ id: 11 }).then(function (project) {
-  //user.addProjects([project, 12]);
-//});
-/**models.User.find({ where: {first_name: 'john'} }).on('success', function(user) {
-  models.City.find({where: {id: 10}}).on('success', function(city){
-    user.setCities([city]);
-  });
-});
-**/
 
 module.exports = router

@@ -4,8 +4,8 @@ const {User} = require('../data_model/index');
 const passport = require('passport');
 require('dotenv').config();
 const {OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client(CLIENT_ID);
-
+//const client = new OAuth2Client(CLIENT_ID);
+/**
 async function verify() {
   const ticket = await client.verifyIdToken({
       idToken: token,
@@ -19,7 +19,7 @@ async function verify() {
   //const domain = payload['hd'];
 }
 verify().catch(console.error);
-
+**/
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
 router.get('/callback', passport.authenticate('google', {

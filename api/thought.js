@@ -91,7 +91,7 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
 router.get('/best', async (req, res, next) => {
     let allThoughts = [];
     try {
-      
+
       const allPosts = await Post.findAll({
           order:[
             ['createdAt', 'DESC']
@@ -139,5 +139,6 @@ router.get('/worst', async (req, res, next) => {
     const sortedPosts = allThoughts.sort((a, b) => {return a.vote - b.vote})
     res.status(201).json(sortedPosts);
 })
+
 
 module.exports = router

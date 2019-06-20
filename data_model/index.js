@@ -1,7 +1,7 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
-//const Database = new Sequelize('postgres://' + process.env.DATABASE_USER + ':' + process.env.DATABASE_PASS + '@localhost/' + process.env.DATABASE_NAME);
-const Database = new Sequelize(process.env.DATABASE_URL);
+const Database = new Sequelize('postgres://' + process.env.DATABASE_USER + ':' + process.env.DATABASE_PASS + '@localhost/' + process.env.DATABASE_NAME);
+//const Database = new Sequelize(process.env.DATABASE_URL);
 const UserModel = require('./UserModel.js');
 const PostModel = require('./PostModel.js');
 const CommentModel = require('./CommentModel.js');
@@ -183,6 +183,7 @@ const seed = async () => {
     await postToTag2.createTag({
         tag: 'lunch'
     })
+
     const postToTag3 = await Post.findByPk(1)
     await postToTag3.createTag({
         tag: 'cheatday'
@@ -201,6 +202,11 @@ const seed = async () => {
     const postToTag6 = await Post.findByPk(3)
     await postToTag6.createTag({
         tag: 'myfirsttime'
+    })
+
+    const postToTag7 = await Post.findByPk(2)
+    await postToTag7.createTag({
+        tag: 'pizza'
     })
 
     //users liking posts
