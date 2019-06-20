@@ -51,10 +51,9 @@ const verificationCallback = async (token, refreshToken, profile,  done) => {
       email: profile.emails[0].value,
       imageUrl: profile.photos ? profile.photos[0].value : undefined
     }
-
   try {
     const [user] = await User.findOrCreate({
-      where: {google_id: profile.id},
+      where: {google_id: profile.id, distance_radius: 25},
       defaults: info
     })
      done(null, user);
@@ -65,10 +64,5 @@ const verificationCallback = async (token, refreshToken, profile,  done) => {
 
 const strategy = new GoogleStrategy(googleCredentials, verificationCallback);
 passport.use(strategy);
-
-
-
-
-
 
 module.exports = router
