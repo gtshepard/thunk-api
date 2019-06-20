@@ -78,4 +78,17 @@ router.post('/post/:id', (req, res, next) => {
   })
 });
 
+//add an group of tags to specific post
+router.post('/group/post/:id', async (req, res, next) => {
+    const postToTag = await Post.findByPk(req.params.id)
+    let tags = req.body
+    let tagsCreated = []
+    for(let i = 0; i < tags.length; i++){
+        tagsCreated.push(await postToTag.createTag(tags[i]))
+    }
+    res.status(201).json(tagsCreated)
+})
+
+
+
 module.exports = router
