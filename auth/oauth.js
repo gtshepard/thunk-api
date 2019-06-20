@@ -23,8 +23,8 @@ verify().catch(console.error);
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
 router.get('/callback', passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/',
-    failureRedirect: '/'
+    successRedirect: 'https://thunk-api-19.herokuapp.com/api/v1/thought',
+    failureRedirect: 'https://github.com'
 }));
 
 router.delete('/logout', (req, res, next) => {
