@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
     ]})
 
     for (let i = 0; i < allPosts.length; i++) {
-
+      let comments = await Comment.findAll({where:{postId:[allPosts[i].id]}})
       const thought = {
         user: await User.findByPk(allPosts[i].userId),
         post: allPosts[i],
@@ -27,6 +27,8 @@ router.get('/', async (req, res, next) => {
       console.log(err);
   }
 });
+
+//map each item from comment -> {comment, report}
 
 //get all thoughts made by a specific user
 router.get('/user/:userid', async (req, res, next) => {

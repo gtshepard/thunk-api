@@ -16,6 +16,15 @@ router.get('/user/:id', (req, res, next) => {
   Comment.findAll({where:{userId:[req.params.id]}}).then((comment) => res.status(201).json(comment));
 });
 
+//get all reports for a comment
+router.get('/report/:commentid', async (req, res, next) => {
+  try{
+    const comment = await Comment.findByPk(req.params.commentid)
+    res.status(201).json(await comment.countUserReportComment())
+  } catch (err){
+    console.log(err)
+  }
+})
 //create a comment
 router.post('/', (req, res, next) => {
     Comment.create(req.body).then((comment) => res.status(201).json(comment));
