@@ -11,8 +11,6 @@
     6.  [Tag](#tag)
 3. [Response and Request Format](#response-and-request-format)
 
-
-
 ## Usage
 * * *
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
@@ -25,6 +23,7 @@
 ### Auth
 
 * * *
+
 ###### sign in with google (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/auth/google ```
 
@@ -37,35 +36,48 @@
 
 * * *
 
+###### get thought by id (GET)
+- ``` https://thunk-api-19.herokuapp.com/api/v1/thought/:thoughtid ```
+
 ###### get all thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought ```
+
 ###### get all thoughts for a specific user (GET)
-- ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought/user/:userid ```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/thought/user/:userid ```
+
 ###### get all posts within x miles of the users location (where x is the distance radius) (GET)
-- ``` https://thunk-api-19.herokuapp.com/api/v1/thought/user/:userid/:radius/:lat/:lng```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/thought/user/:userid/:radius/:lat/:lng ```
+
 ###### get all time best thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought/best ```
+
 ###### get all time worst thoughts (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/thought/worst ```
 
 * * *
 
-### User
+### User 
 
 * * *
 
 ###### get all users (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/```
+
 ###### get user by id (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
+
 ###### user reports post (GET)
 - ```https://thunk-api-19.herokuapp.com/user/report/post/:postid/user/:userid```
+
 ###### user reports commment (GET)
 - ``` https://thunk-api-19.herokuapp.com/user/report/comment/:commentid/user/:userid```
+
 ###### create a user (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user```
+
 ###### update a user (PUT)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
+
 ###### delete a user (DELETE)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/user/:userid```
 
@@ -76,7 +88,7 @@
 * * *
 
 ###### get all posts (GET)
-- ``` https://thunk-api-19.herokuapp.com/api/v1/post```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/post ```
 ###### get all posts made by a specific user (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/user/:userid```
 ###### get all posts within x miles of the users location (where x is the distance radius) (GET)
@@ -135,7 +147,7 @@
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
 ###### create a tag for a post (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tag/post/:postid```
-###### add a group of  tags to a post (POST)
+###### add a group of tags to a post (POST)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/tagroup/post/:id ```
 
 
