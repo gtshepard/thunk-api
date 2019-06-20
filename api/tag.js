@@ -18,6 +18,36 @@ router.get('/:tag', (req, res, next) => {
 //users shoudl not have to do cors plugin
 //get most popluar tags
 
+
+router.get('/trending', async (req, res, next) => {
+    const allTags = Tag.findAll()
+    let trendingTags = [];
+
+    for (let i = 0; i < allTags.length; i++){
+      trendingTags.push({
+        tag: allTags[i],
+        count: await Tag.findAndCountAll({
+          where:{
+            tag: allTags[i].tag
+          }
+        })
+      }})
+    }
+    res.status(201).json(trendingTags)
+}
+
+/**
+    for (let i = 0; i < allTags.length; i++) {
+        let frequency = 0;
+        for(let j = 0; j < allTags.length; i++){
+            if (allTags[i] === allTags[j]){
+                frequency = frequency + 1;
+                {tag: allTags[i].tag, count: frequency}
+            }
+        }
+    }**/
+})
+
 //create a tag for a post
 router.post('/post/:id', (req, res, next) => {
   Post.findByPk(req.params.id).then((post) => {
