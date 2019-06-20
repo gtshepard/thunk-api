@@ -38,7 +38,7 @@
 * * *
 
 ###### get all thoughts (GET)
-- ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought ```
+- ``` https://thunk-api-19.herokuapp.com/api/v1/thought ```
 ###### get all thoughts for a specific user (GET)
 - ``` https://thunk-api-19.herokuapp.com/api/v1/post/thought/user/:userid ```
 ###### get all posts within x miles of the users location (where x is the distance radius) (GET)
