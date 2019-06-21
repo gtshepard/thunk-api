@@ -8,12 +8,12 @@ const {OAuth2Client} = require('google-auth-library');
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
 router.get('/me', (req, res, next) => {
-  res.json(req.body.user || {})
+  res.json(req.user || {})
 })
 
 router.get('/callback', passport.authenticate('google', {
-    successRedirect: 'https://thunk-client-19.herokuapp.com',
-    failureRedirect: 'https://thunk-client-19.herokuapp.com/login'
+    successRedirect: 'https://thunk-client-19.herokuapp.com/home',
+    failureRedirect: 'https://thunk-client-19.herokuapp.com/'
 }));
 
 router.delete('/logout', (req, res, next) => {
