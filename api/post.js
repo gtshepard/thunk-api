@@ -2,18 +2,28 @@ const router = require('express').Router();
 const {User, Post, Comment, Tag} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
 
+const accessProtectionMiddleware = (req, res, next) => {
+      if (req.isAuthenticated()){
+        next()
+      } else {
+         res.status(403).json({
+            message: 'must be logged in to continue'
+         });
+      }
+}
+
 //get all posts
-router.get('/', (req, res, next) => {
+router.get('/', accessProtectionMiddleware, (req, res, next) => {
     Post.findAll().then((posts) => res.status(201).json(posts));
 });
 
 //get all posts made by a specific user
-router.get('/user/:userid', (req, res, next) => {
+router.get('/user/:userid', accessProtectionMiddleware, (req, res, next) => {
     Post.findAll({where:{userId:[req.params.userid]}}).then((posts) => res.status(201).json(posts));
 });
 
 //get feed for a user (posts with in the location radius of the user)
-router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
+router.get('/user/:id/:radius/:lat/:lng', accessProtectionMiddleware, (req, res, next) => {
   //55 clark st 40.697835, -73.993762
   //animoto  40.730876, -73.992002
   //wsq park 40.731091, -73.997318
@@ -31,14 +41,14 @@ router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
 });
 
 //get number of likes for a post
-router.get('/likes/post/:id', (req, res, next) => {
+router.get('/likes/post/:id', accessProtectionMiddleware, (req, res, next) => {
   Post.findByPk(req.params.id).then((post) => {
     post.countLikes().then((post) => res.json(post))
   })
 })
 
 //get number of dislikes for a post
-router.get('/dislikes/post/:id', (req, res, next) => {
+router.get('/dislikes/post/:id', accessProtectionMiddleware, (req, res, next) => {
   Post.findByPk(req.params.id).then((post) => {
     post.countDislikes().then((post) => res.json(post))
   })
@@ -46,7 +56,7 @@ router.get('/dislikes/post/:id', (req, res, next) => {
 
 //TODO: recycler view
 //get all time best posts based on vote count.
-router.get('/best', async (req, res, next) => {
+router.get('/best', accessProtectionMiddleware, async (req, res, next) => {
 
     let postLikes = [];
     const allPosts = await Post.findAll()
@@ -61,7 +71,7 @@ router.get('/best', async (req, res, next) => {
 })
 
 //get all time worst posts based on vote count.
-router.get('/worst', async (req, res, next) => {
+router.get('/worst', accessProtectionMiddleware, async (req, res, next) => {
 
     let postLikes = [];
     const allPosts = await Post.findAll()
@@ -76,7 +86,7 @@ router.get('/worst', async (req, res, next) => {
 })
 
 //user likes a post TODO: make it so user can only lke post once
-router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
+router.post('/likes/post/:postid/user/:userid', accessProtectionMiddleware, (req, res, next) => {
 
   Post.findByPk(req.params.postid).then((post) => {
     User.findByPk(req.params.userid).then(user => {
@@ -86,7 +96,7 @@ router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
 })
 
 //user Dislikes a post TODO: make it so user can only dislike post once
-router.post('/dislikes/post/:postid/user/:userid', (req, res, next) => {
+router.post('/dislikes/post/:postid/user/:userid', accessProtectionMiddleware, (req, res, next) => {
   Post.findByPk(req.params.postid).then((post) => {
     User.findByPk(req.params.userid).then(user => {
       post.addDislike(user).then(like => res.json(like))

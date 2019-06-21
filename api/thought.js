@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const {User, Post, Comment, Tag} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
-const access = require('../auth/access.js');
 
 const accessProtectionMiddleware = (req, res, next) => {
       if (req.isAuthenticated()){

@@ -15,23 +15,33 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+const accessProtectionMiddleware = (req, res, next) => {
+      if (req.isAuthenticated()){
+        next()
+      } else {
+         res.status(403).json({
+            message: 'must be logged in to continue'
+         });
+      }
+}
+
 //get all users
-router.get('/', (req, res, next) => {
+router.get('/', accessProtectionMiddleware,(req, res, next) => {
     User.findAll().then((users) => res.status(201).json(users));
 });
 
 //get user by id
-router.get('/:userid', (req, res, next) => {
+router.get('/:userid', accessProtectionMiddleware, (req, res, next) => {
     User.findByPk(req.params.userid).then((user) => res.status(201).json(user));
 });
 
 //create a user
-router.post('/', (req, res, next) => {
+router.post('/', accessProtectionMiddleware,  (req, res, next) => {
     User.create(req.body).then((user) => res.status(201).json(user));
 });
 
 //user reports a post
-router.post('/report/post/:postid/user/:userid', async (req, res, next) => {
+router.post('/report/post/:postid/user/:userid', accessProtectionMiddleware, async (req, res, next) => {
   try {
     const postToReport = await Post.findByPk(req.params.postid)
     const userToReportPost = await User.findByPk(req.params.userid)
@@ -43,7 +53,7 @@ router.post('/report/post/:postid/user/:userid', async (req, res, next) => {
 })
 
 //user reports a comment
-router.post('/report/comment/:commentid/user/:userid', async (req, res, next) => {
+router.post('/report/comment/:commentid/user/:userid', accessProtectionMiddleware,  async (req, res, next) => {
   try {
     const commentToReport = await Comment.findByPk(req.params.commentid)
     const userToReportComment = await User.findByPk(req.params.userid)
@@ -55,12 +65,12 @@ router.post('/report/comment/:commentid/user/:userid', async (req, res, next) =>
 })
 
 //update a user
-router.put('/:id', (req, res, next) => {
+router.put('/:id', accessProtectionMiddleware , (req, res, next) => {
     User.findByPk(req.params.id).then((user) => user.update(req.body)).then((updatedUser) => res.status(201).json(updatedUser));
 });
 
 //delete a user
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', accessProtectionMiddleware , (req, res, next) => {
     User.destroy({
       where:{id: req.params.id}
     }).then((user) => res.status(201).json(user));

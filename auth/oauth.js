@@ -49,6 +49,17 @@ const verificationCallback = async (token, refreshToken, profile,  done) => {
   }
 }
 
+
+const accessProtectionMiddleware = (req, res, next) => {
+      if (req.isAuthenticated()){
+        next()
+      } else {
+         res.status(403).json({
+            message: 'must be logged in to continue'
+         });
+      }
+}
+
 const strategy = new GoogleStrategy(googleCredentials, verificationCallback);
 passport.use(strategy);
 
