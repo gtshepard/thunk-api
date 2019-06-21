@@ -2,18 +2,7 @@ const router = require('express').Router();
 const {User, Post, Comment, Tag} = require('../data_model/index');
 const passport = require('passport');
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findByPk(id);
-    done(null, user)
-  } catch (err){
-    done(err);
-  }
-});
 
 const accessProtectionMiddleware = (req, res, next) => {
       if (req.isAuthenticated()){

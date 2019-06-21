@@ -8,7 +8,7 @@ const {OAuth2Client} = require('google-auth-library');
 router.get('/', passport.authenticate('google', {scope: 'email'}))
 
 router.get('/me', (req, res, next) => {
-  res.json(req.user || {})
+  res.json(req.body.user || {})
 })
 
 router.get('/callback', passport.authenticate('google', {

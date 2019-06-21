@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+const {User, Post, Comment, Tag} = require('./data_model/index');
 const PORT = process.env.PORT
 require('dotenv').config();
 
@@ -21,6 +22,9 @@ let allowCrossDomain = function(req, res, next) {
       next();
     }
 };
+
+
+
 
 
 //logging middleware
@@ -41,6 +45,21 @@ app.use(session({
 //inti session
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user)
+  } catch (err){
+    done(err);
+  }
+});
+
+
 
 /**
 app.get('/google2f484170efc3e9f0.html', (req, res, next) => {
