@@ -40,6 +40,61 @@ router.get('/', async (req, res, next) => {
 });
 
 
+router.get('/best',  async (req, res, next) => {
+    let allThoughts = [];
+    try {
+
+      const allPosts = await Post.findAll({
+          order:[
+            ['createdAt', 'DESC']
+      ]})
+
+      for (let i = 0; i < allPosts.length; i++) {
+        const thought = {
+          user: await User.findByPk(allPosts[i].userId),
+          post: allPosts[i],
+          comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
+          vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
+          tag: await allPosts[i].getTags(),
+          postReports: await allPosts[i].countUserReportPost()
+        }
+        allThoughts.push(thought);
+      }
+    } catch(err) {
+      console.log(err)
+    }
+
+    const sortedPosts = allThoughts.sort((a, b) => {return b.vote - a.vote})
+    res.status(201).json(sortedPosts);
+})
+
+router.get('/worst', async (req, res, next) => {
+  let allThoughts = [];
+  try {
+    const allPosts = await Post.findAll({
+        order:[
+          ['createdAt', 'DESC']
+    ]})
+
+    for (let i = 0; i < allPosts.length; i++) {
+      const thought = {
+        user: await User.findByPk(allPosts[i].userId),
+        post: allPosts[i],
+        comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
+        vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
+        tag: await allPosts[i].getTags(),
+        postReports: await allPosts[i].countUserReportPost()
+      }
+      allThoughts.push(thought);
+    }
+  } catch(err) {
+    console.log(err)
+  }
+    const sortedPosts = allThoughts.sort((a, b) => {return a.vote - b.vote})
+    res.status(201).json(sortedPosts);
+})
+
+
 router.get('/:thoughtid', async (req, res, next) => {
   try {
       const post = await Post.findByPk(req.params.thoughtid)
@@ -123,60 +178,6 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
       }
 })
 
-
-router.get('/best',  async (req, res, next) => {
-    let allThoughts = [];
-    try {
-
-      const allPosts = await Post.findAll({
-          order:[
-            ['createdAt', 'DESC']
-      ]})
-
-      for (let i = 0; i < allPosts.length; i++) {
-        const thought = {
-          user: await User.findByPk(allPosts[i].userId),
-          post: allPosts[i],
-          comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
-          vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
-          tag: await allPosts[i].getTags(),
-          postReports: await allPosts[i].countUserReportPost()
-        }
-        allThoughts.push(thought);
-      }
-    } catch(err) {
-      console.log(err)
-    }
-
-    const sortedPosts = allThoughts.sort((a, b) => {return b.vote - a.vote})
-    res.status(201).json(sortedPosts);
-})
-
-router.get('/worst', async (req, res, next) => {
-  let allThoughts = [];
-  try {
-    const allPosts = await Post.findAll({
-        order:[
-          ['createdAt', 'DESC']
-    ]})
-
-    for (let i = 0; i < allPosts.length; i++) {
-      const thought = {
-        user: await User.findByPk(allPosts[i].userId),
-        post: allPosts[i],
-        comment: await Comment.findAll({where:{postId:[allPosts[i].id]}}),
-        vote: await allPosts[i].countLikes() - await allPosts[i].countDislikes(),
-        tag: await allPosts[i].getTags(),
-        postReports: await allPosts[i].countUserReportPost()
-      }
-      allThoughts.push(thought);
-    }
-  } catch(err) {
-    console.log(err)
-  }
-    const sortedPosts = allThoughts.sort((a, b) => {return a.vote - b.vote})
-    res.status(201).json(sortedPosts);
-})
 
 
 module.exports = router
