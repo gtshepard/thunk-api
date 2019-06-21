@@ -1,8 +1,20 @@
 const router = require('express').Router();
 const {User, Post, Comment, Tag} = require('../data_model/index');
 const geoSphere = require('spherical-geometry-js');
+const access = require('../auth/access.js');
+
+const accessProtectionMiddleware = (req, res, next) => {
+      if (req.isAuthenticated()){
+        next()
+      } else {
+         res.status(403).json({
+            message: 'must be logged in to continue'
+         });
+      }
+}
+
 //get all thoughts
-router.get('/', async (req, res, next) => {
+router.get('/', accessProtectionMiddleware ,async (req, res, next) => {
 
   let allThoughts = [];
   try {
@@ -29,7 +41,7 @@ router.get('/', async (req, res, next) => {
 });
 
 
-router.get('/:thoughtid', async (req, res, next) => {
+router.get('/:thoughtid',accessProtectionMiddleware , async (req, res, next) => {
   try {
       const post = await Post.findByPk(req.params.thoughtid)
       let comments = await Comment.findAll({where:{postId:[post.id]}})
@@ -51,7 +63,7 @@ router.get('/:thoughtid', async (req, res, next) => {
 //map each item from comment -> {comment, report}
 
 //get all thoughts made by a specific user
-router.get('/user/:userid', async (req, res, next) => {
+router.get('/user/:userid',accessProtectionMiddleware , async (req, res, next) => {
     let userThoughts = []
 
     try {
@@ -79,7 +91,7 @@ router.get('/user/:userid', async (req, res, next) => {
     }
 })
 
-router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
+router.get('/user/:id/:radius/:lat/:lng', accessProtectionMiddleware , async (req, res, next) => {
 
     function getMiles(i) {
       return i*0.000621371192;
@@ -113,7 +125,7 @@ router.get('/user/:id/:radius/:lat/:lng', async (req, res, next) => {
 })
 
 
-router.get('/best', async (req, res, next) => {
+router.get('/best', accessProtectionMiddleware , async (req, res, next) => {
     let allThoughts = [];
     try {
 
@@ -141,7 +153,7 @@ router.get('/best', async (req, res, next) => {
     res.status(201).json(sortedPosts);
 })
 
-router.get('/worst', async (req, res, next) => {
+router.get('/worst', accessProtectionMiddleware , async (req, res, next) => {
   let allThoughts = [];
   try {
     const allPosts = await Post.findAll({

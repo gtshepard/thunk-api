@@ -77,6 +77,7 @@ router.get('/worst', async (req, res, next) => {
 
 //user likes a post TODO: make it so user can only lke post once
 router.post('/likes/post/:postid/user/:userid', (req, res, next) => {
+
   Post.findByPk(req.params.postid).then((post) => {
     User.findByPk(req.params.userid).then(user => {
       post.addLike(user).then(like => res.json(like))
