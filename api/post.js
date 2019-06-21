@@ -85,6 +85,24 @@ router.get('/worst', async (req, res, next) => {
     res.status(201).json(sortedPosts);
 })
 
+
+
+//has user x liked post y
+router.get('/disliked/:userid/:postid', async (req,res,next) => {
+    const user = User.findByPk(req.params.userid)
+    const post = Post.findByPk(req.params.postid)
+    const dislikes = await post.getDislikes(user)
+
+    for (let i = 0; i < likes.length; i++){
+        if(dislikes[i].dislikes.userId === user.id){
+          return res.status(201).json({disliked: True})
+        }
+      }
+
+      return res.status(201).json({disliked: False})
+})
+
+
 //user likes a post TODO: make it so user can only lke post once
 router.post('/likes/post/:postid/user/:userid', async (req, res, next) => {
 
@@ -102,7 +120,7 @@ router.post('/likes/post/:postid/user/:userid', async (req, res, next) => {
     for (let i = 0; i < likes.length; i++){
         if(likes[i].likes.userId === user.id){
           await post.removeLike(user);
-          return res.status(201).json({msg:"removed like"})
+          return res.status(201).json({disliked:"False"})
         }
       }
       const like = await post.addLike(user)
@@ -130,7 +148,7 @@ router.post('/dislikes/post/:postid/user/:userid', async (req, res, next) => {
     for (let i = 0; i < dislikes.length; i++){
         if(dislikes[i].dislikes.userId === user.id){
           await post.removeDislike(user);
-          return res.status(201).json({msg:"removed dislike"})
+          return res.status(201).json({disliked:"False"})
         }
       }
       const dislike = await post.addDislike(user)
@@ -139,10 +157,6 @@ router.post('/dislikes/post/:postid/user/:userid', async (req, res, next) => {
     } catch(err){
       console.log(err)
     }
-
-
-
-
 })
 
 //creates a post

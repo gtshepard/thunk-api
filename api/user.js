@@ -35,6 +35,21 @@ router.get('/:userid', (req, res, next) => {
     User.findByPk(req.params.userid).then((user) => res.status(201).json(user));
 });
 
+//has user x liked post y
+router.get('/liked/:userid/:postid', async (req,res,next) => {
+    const user = User.findByPk(req.params.userid)
+    const post = Post.findByPk(req.params.postid)
+    const likes = await post.getLikes(user)
+/**
+    for (let i = 0; i < likes.length; i++){
+        if(likes[i].likes.userId === user.id){
+          return res.status(201).json({liked: True})
+        }
+      }
+**/
+      return res.status(201).json({liked: False})
+})
+
 //create a user
 router.post('/', (req, res, next) => {
     User.create(req.body).then((user) => res.status(201).json(user));
