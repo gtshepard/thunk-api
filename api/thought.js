@@ -95,6 +95,7 @@ router.get('/worst', async (req, res, next) => {
 })
 
 
+
 router.get('/:thoughtid', async (req, res, next) => {
   try {
       const post = await Post.findByPk(req.params.thoughtid)

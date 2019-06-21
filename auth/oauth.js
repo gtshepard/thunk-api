@@ -12,7 +12,7 @@ router.get('/me', (req, res, next) => {
 })
 
 router.get('/callback', passport.authenticate('google', {
-    successRedirect: 'https://thunk-client-19.herokuapp.com',
+    successRedirect: 'https://thunk-api-19.herokuapp.com/auth/google/me',
     failureRedirect: 'https://thunk-client-19.herokuapp.com/login'
 }));
 
