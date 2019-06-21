@@ -13,17 +13,17 @@ const accessProtectionMiddleware = (req, res, next) => {
 }
 
 //get all posts
-router.get('/', accessProtectionMiddleware, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Post.findAll().then((posts) => res.status(201).json(posts));
 });
 
 //get all posts made by a specific user
-router.get('/user/:userid', accessProtectionMiddleware, (req, res, next) => {
+router.get('/user/:userid', (req, res, next) => {
     Post.findAll({where:{userId:[req.params.userid]}}).then((posts) => res.status(201).json(posts));
 });
 
 //get feed for a user (posts with in the location radius of the user)
-router.get('/user/:id/:radius/:lat/:lng', accessProtectionMiddleware, (req, res, next) => {
+router.get('/user/:id/:radius/:lat/:lng', (req, res, next) => {
   //55 clark st 40.697835, -73.993762
   //animoto  40.730876, -73.992002
   //wsq park 40.731091, -73.997318
@@ -71,7 +71,7 @@ router.get('/best', accessProtectionMiddleware, async (req, res, next) => {
 })
 
 //get all time worst posts based on vote count.
-router.get('/worst', accessProtectionMiddleware, async (req, res, next) => {
+router.get('/worst', async (req, res, next) => {
 
     let postLikes = [];
     const allPosts = await Post.findAll()
@@ -86,22 +86,63 @@ router.get('/worst', accessProtectionMiddleware, async (req, res, next) => {
 })
 
 //user likes a post TODO: make it so user can only lke post once
-router.post('/likes/post/:postid/user/:userid', accessProtectionMiddleware, (req, res, next) => {
+router.post('/likes/post/:postid/user/:userid', async (req, res, next) => {
 
-  Post.findByPk(req.params.postid).then((post) => {
-    User.findByPk(req.params.userid).then(user => {
-      post.addLike(user).then(like => res.json(like))
-    })
-  })
+  try {
+    const post = await Post.findByPk(req.params.postid)
+    const user = await User.findByPk(req.params.userid)
+    const likes = await post.getLikes()
+    console.log("LEN", likes.length)
+
+    if(likes.length === 1){
+      const like = await post.addLike(user)
+      return res.status(201).json(like)
+    }
+
+    for (let i = 0; i < likes.length; i++){
+        if(likes[i].likes.userId === user.id){
+          await post.removeLike(user);
+          return res.status(201).json({msg:"removed like"})
+        }
+      }
+      const like = await post.addLike(user)
+      return res.status(201).json(like)
+
+    } catch(err){
+      console.log(err)
+    }
 })
 
 //user Dislikes a post TODO: make it so user can only dislike post once
-router.post('/dislikes/post/:postid/user/:userid', accessProtectionMiddleware, (req, res, next) => {
-  Post.findByPk(req.params.postid).then((post) => {
-    User.findByPk(req.params.userid).then(user => {
-      post.addDislike(user).then(like => res.json(like))
-    })
-  })
+router.post('/dislikes/post/:postid/user/:userid', async (req, res, next) => {
+
+  try {
+    const post = await Post.findByPk(req.params.postid)
+    const user = await User.findByPk(req.params.userid)
+    const dislikes = await post.getDislikes()
+    console.log("LEN", dislikes.length)
+
+    if(dislikes.length === 1){
+      const dislike = await post.addDislike(user)
+      return res.status(201).json(dislike)
+    }
+
+    for (let i = 0; i < dislikes.length; i++){
+        if(dislikes[i].dislikes.userId === user.id){
+          await post.removeDislike(user);
+          return res.status(201).json({msg:"removed dislike"})
+        }
+      }
+      const dislike = await post.addDislike(user)
+      return res.status(201).json(dislike)
+
+    } catch(err){
+      console.log(err)
+    }
+
+
+
+
 })
 
 //creates a post

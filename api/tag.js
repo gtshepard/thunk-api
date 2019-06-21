@@ -12,7 +12,7 @@ const accessProtectionMiddleware = (req, res, next) => {
       }
 }
 //get all tags
-router.get('/', accessProtectionMiddleware , async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
       const tagsInOrderByName = await Tag.findAll({order: [['tag']]})
       res.status(201).json(tagsInOrderByName)
@@ -21,7 +21,7 @@ router.get('/', accessProtectionMiddleware , async (req, res, next) => {
     }
 })
 //get most used tags in order of frequen
-router.get('/trending', accessProtectionMiddleware , async (req, res, next) => {
+router.get('/trending', async (req, res, next) => {
 
   try{
       const allTags = await Tag.findAll()
@@ -43,7 +43,7 @@ router.get('/trending', accessProtectionMiddleware , async (req, res, next) => {
 })
 
 //get all hashtags for a post
-router.get('/post/:id', accessProtectionMiddleware, (req, res, next) => {
+router.get('/post/:id', (req, res, next) => {
   console.log("GET POSTS BY TAG VALUE")
   Post.findByPk(req.params.id).then((post) => {
     post.getTags().then((post) => res.json(post))
@@ -51,7 +51,7 @@ router.get('/post/:id', accessProtectionMiddleware, (req, res, next) => {
 })
 
 //get all thoughts that contain a specific tag
-router.get('/thought/:tag', accessProtectionMiddleware, async (req, res, next) => {
+router.get('/thought/:tag', async (req, res, next) => {
   let postsWithThisTag = []
   try {
     const allTags = await Tag.findAll()
@@ -81,14 +81,14 @@ router.get('/thought/:tag', accessProtectionMiddleware, async (req, res, next) =
 })
 
 //create a tag for a post
-router.post('/post/:id', accessProtectionMiddleware, (req, res, next) => {
+router.post('/post/:id', (req, res, next) => {
   Post.findByPk(req.params.id).then((post) => {
     post.createTag(req.body).then((post) => res.json(post))
   })
 });
 
 //add an group of tags to specific post
-router.post('/group/post/:id', accessProtectionMiddleware, async (req, res, next) => {
+router.post('/group/post/:id', async (req, res, next) => {
     const postToTag = await Post.findByPk(req.params.id)
     let tags = req.body
     let tagsCreated = []
