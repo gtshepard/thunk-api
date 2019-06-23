@@ -13,6 +13,8 @@
 
 ## Usage
 * * *
+- currently in use for the backend of Thunk!,  An anynomous thought sharing app!
+- Thunk!: https://thunk-client-19.herokuapp.com/
 - The REST Interface's availible endpoints are listed below in conjunction with HTTP method needed to make a request to each endpoint
 * * *
 
